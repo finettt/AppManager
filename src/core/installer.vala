@@ -451,11 +451,11 @@ namespace AppManager.Core {
                 Utils.FileUtils.remove_dir_recursive(temp_dir);
             }
         }
-        public void uninstall(InstallationRecord record) throws Error {
-            uninstall_sync(record);
+        public void uninstall(InstallationRecord record, bool permanently = false) throws Error {
+            uninstall_sync(record, permanently);
         }
 
-        private void uninstall_sync(InstallationRecord record) throws Error {
+        private void uninstall_sync(InstallationRecord record, bool permanently) throws Error {
             try {
                 // Mark as in-flight and unregister FIRST to prevent reconcile race conditions
                 // This ensures the record is removed from registry before the file is deleted,
@@ -468,8 +468,16 @@ namespace AppManager.Core {
                 if (installed_file.query_exists()) {
                     if (installed_file.query_file_type(FileQueryInfoFlags.NONE) == FileType.DIRECTORY) {
                         Utils.FileUtils.remove_dir_recursive(record.installed_path);
+                    } else if (permanently) {
+                        installed_file.delete(null);
                     } else {
-                        installed_file.trash(null);
+                        try {
+                            installed_file.trash(null);
+                        } catch (Error trash_err) {
+                            // Re-register the record so it's not lost when user is prompted
+                            registry.register(record);
+                            throw new InstallerError.UNINSTALL_FAILED("TRASH_FAILED: %s".printf(trash_err.message));
+                        }
                     }
                 }
                 if (record.desktop_file != null && File.new_for_path(record.desktop_file).query_exists()) {

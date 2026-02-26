@@ -753,26 +753,49 @@ Examples:
             return 0;
         }
 
-        public void uninstall_record(InstallationRecord record, Gtk.Window? parent_window) {
-            uninstall_record_async.begin(record, parent_window);
+        public void uninstall_record(InstallationRecord record, Gtk.Window? parent_window, bool permanently = false) {
+            uninstall_record_async.begin(record, parent_window, permanently);
         }
 
-        private async void uninstall_record_async(InstallationRecord record, Gtk.Window? parent_window) {
+        private async void uninstall_record_async(InstallationRecord record, Gtk.Window? parent_window, bool permanently) {
             SourceFunc callback = uninstall_record_async.callback;
             Error? error = null;
+            bool trash_failed = false;
 
             new Thread<void>("appmgr-uninstall", () => {
                 try {
-                    installer.uninstall(record);
+                    installer.uninstall(record, permanently);
                 } catch (Error e) {
                     error = e;
+                    // Check if trash specifically failed (not a permanent delete failure)
+                    if (!permanently && e.message.has_prefix("TRASH_FAILED:")) {
+                        trash_failed = true;
+                    }
                 }
                 Idle.add((owned) callback);
             });
 
             yield;
 
-            if (error != null) {
+            if (trash_failed) {
+                // Offer to delete permanently as fallback
+                var app_name = record.name ?? Path.get_basename(record.installed_path);
+                var dialog = new Adw.AlertDialog(
+                    _("Cannot move to trash"),
+                    _("%s could not be moved to the trash. Do you want to delete it permanently instead?\n\nThis action cannot be undone.").printf(app_name)
+                );
+                dialog.add_response("cancel", _("Cancel"));
+                dialog.add_response("delete", _("Delete Permanently"));
+                dialog.set_response_appearance("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+                dialog.set_close_response("cancel");
+                dialog.set_default_response("cancel");
+                dialog.response.connect((response) => {
+                    if (response == "delete") {
+                        uninstall_record(record, parent_window, true);
+                    }
+                });
+                dialog.present(parent_window ?? main_window);
+            } else if (error != null) {
                 var dialog = new Adw.AlertDialog(
                     _("Uninstall failed"),
                     _("%s could not be removed: %s").printf(record.name, error.message)
@@ -782,7 +805,11 @@ Examples:
                 dialog.present(parent_window ?? main_window);
             } else {
                 if (parent_window != null && parent_window is MainWindow) {
-                    ((MainWindow)parent_window).add_toast(_("Moved to Trash"));
+                    if (permanently) {
+                        ((MainWindow)parent_window).add_toast(_("Deleted permanently"));
+                    } else {
+                        ((MainWindow)parent_window).add_toast(_("Moved to Trash"));
+                    }
                 }
             }
         }

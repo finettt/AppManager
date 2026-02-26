@@ -15,12 +15,14 @@ namespace AppManager {
         private Gtk.Button? extract_button;
         private Adw.Banner? path_banner;
         private Adw.SwitchRow? path_row;
+        private Gtk.Button? delete_button;
+        private bool shift_held = false;
         
         // Shared state for build_ui sub-methods
         private string exec_path;
         private HashTable<string, string> desktop_props;
         
-        public signal void uninstall_requested(InstallationRecord record);
+        public signal void uninstall_requested(InstallationRecord record, bool permanently);
         public signal void update_requested(InstallationRecord record);
         public signal void check_update_requested(InstallationRecord record);
         public signal void extract_requested(InstallationRecord record);
@@ -34,6 +36,7 @@ namespace AppManager {
             this.can_pop = true;
             
             build_ui();
+            setup_shift_key_controller();
         }
 
         public bool matches_record(InstallationRecord other) {
@@ -761,18 +764,18 @@ namespace AppManager {
             actions_box.append(row1);
 
             // Second row: Delete button
-            var delete_button = new Gtk.Button();
+            delete_button = new Gtk.Button();
             delete_button.add_css_class("pill");
             delete_button.width_request = 200;
             delete_button.hexpand = false;
-            var delete_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-            delete_box.set_halign(Gtk.Align.CENTER);
-            delete_box.append(new Gtk.Image.from_icon_name("user-trash-symbolic"));
-            delete_box.append(new Gtk.Label(_("Move to Trash")));
-            delete_button.set_child(delete_box);
+            update_delete_button_label();
             delete_button.add_css_class("destructive-action");
             delete_button.clicked.connect(() => {
-                uninstall_requested(record);
+                if (shift_held) {
+                    present_permanent_delete_warning();
+                } else {
+                    uninstall_requested(record, false);
+                }
             });
             
             actions_box.append(delete_button);
@@ -905,6 +908,64 @@ namespace AppManager {
             return props;
         }
         
+        private void setup_shift_key_controller() {
+            var key_controller = new Gtk.EventControllerKey();
+            key_controller.key_pressed.connect((keyval, keycode, state) => {
+                if (keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R) {
+                    shift_held = true;
+                    update_delete_button_label();
+                }
+                return false;
+            });
+            key_controller.key_released.connect((keyval, keycode, state) => {
+                if (keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R) {
+                    shift_held = false;
+                    update_delete_button_label();
+                }
+            });
+            // Attach to the toplevel window once it's realized
+            this.realize.connect(() => {
+                var toplevel = this.get_root() as Gtk.Window;
+                if (toplevel != null) {
+                    ((Gtk.Widget) toplevel).add_controller(key_controller);
+                }
+            });
+        }
+
+        private void update_delete_button_label() {
+            if (delete_button == null) return;
+            var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+            box.set_halign(Gtk.Align.CENTER);
+            if (shift_held) {
+                box.append(new Gtk.Image.from_icon_name("edit-delete-symbolic"));
+                box.append(new Gtk.Label(_("Delete Permanently")));
+            } else {
+                box.append(new Gtk.Image.from_icon_name("user-trash-symbolic"));
+                box.append(new Gtk.Label(_("Move to Trash")));
+            }
+            delete_button.tooltip_text = _("Hold Shift to delete permanently");
+            delete_button.set_child(box);
+        }
+
+        private void present_permanent_delete_warning() {
+            var app_name = record.name ?? Path.get_basename(record.installed_path);
+            var body = _("<b>%s</b> will be permanently deleted. This action cannot be undone.").printf(GLib.Markup.escape_text(app_name));
+            var dialog = new Adw.AlertDialog(_("Delete permanently?"), null);
+            dialog.set_body_use_markup(true);
+            dialog.set_body(body);
+            dialog.add_response("cancel", _("Cancel"));
+            dialog.add_response("delete", _("Delete Permanently"));
+            dialog.set_response_appearance("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+            dialog.set_close_response("cancel");
+            dialog.set_default_response("cancel");
+            dialog.response.connect((response) => {
+                if (response == "delete") {
+                    uninstall_requested(record, true);
+                }
+            });
+            dialog.present(this);
+        }
+
         private void present_extract_warning() {
             var body = _("Extracting will unpack the application so it opens faster, but it will consume more disk space. This action cannot be reversed automatically.");
             var dialog = new Adw.AlertDialog(_("Extract application?"), body);

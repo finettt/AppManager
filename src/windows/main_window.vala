@@ -1621,12 +1621,12 @@ namespace AppManager {
             if (is_updating) {
                 details_window.set_update_loading(true);
             }
-            details_window.uninstall_requested.connect((r) => {
+            details_window.uninstall_requested.connect((r, permanently) => {
                 navigation_view.pop();
                 if (active_details_window == details_window) {
                     active_details_window = null;
                 }
-                app_ref.uninstall_record(r, this);
+                app_ref.uninstall_record(r, this, permanently);
             });
             details_window.update_requested.connect((r) => {
                 trigger_single_update(r);
