@@ -78,6 +78,7 @@ pacman -Syu --noconfirm \
     json-glib \
     libgee \
     libsoup3 \
+    gvfs \
     desktop-file-utils \
     wget \
     xorg-server-xvfb \
@@ -129,6 +130,7 @@ export OUTNAME="AppManager-${VERSION}-anylinux-${ARCH}.AppImage"
 export UPINFO="gh-releases-zsync|kem-a|AppManager|latest|*anylinux*${ARCH}.AppImage.zsync"
 export ICON=/usr/share/icons/hicolor/scalable/apps/com.github.AppManager.svg
 export DESKTOP=/usr/share/applications/com.github.AppManager.desktop
+export ANYLINUX_LIB=1
 
 # ── Download quick-sharun if not already available ───────────────────
 if command -v quick-sharun >/dev/null 2>&1; then
