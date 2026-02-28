@@ -851,24 +851,17 @@ namespace AppManager {
             DirUtils.create_with_parents(applications_path, 0755);
             
             try {
-                string attributes = "standard::icon";
-                bool check_custom = false;
-
-                // If Nautilus is installed, try to load custom icon from metadata
-                // because Nautilus allows setting custom folder icons
-                var nautilus = new DesktopAppInfo("org.gnome.Nautilus.desktop");
-                if (nautilus != null) {
-                    attributes += ",metadata::custom-icon";
-                    check_custom = true;
-                }
+                // Always query custom-icon metadata — it can be set by any file
+                // manager (Nautilus, Nemo, Caja, etc.) and must not be gated on
+                // detecting a specific desktop file, which fails inside AppImages
+                // where XDG_DATA_DIRS may not include system paths.
+                string attributes = "standard::icon,metadata::custom-icon";
 
                 var info = applications_dir.query_info(attributes, FileQueryInfoFlags.NONE);
                 if (info != null) {
-                    if (check_custom) {
-                        var custom_icon = info.get_attribute_string("metadata::custom-icon");
-                        if (custom_icon != null) {
-                            return new FileIcon(File.new_for_uri(custom_icon));
-                        }
+                    var custom_icon = info.get_attribute_string("metadata::custom-icon");
+                    if (custom_icon != null) {
+                        return new FileIcon(File.new_for_uri(custom_icon));
                     }
                     return info.get_icon();
                 }

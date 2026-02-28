@@ -9,27 +9,27 @@
 
 | Language | Code | Status |
 | -------- | ---- | ------ |
-| Arabic | ar | 100% |
-| German | de | 100% |
-| Greek | el | 100% |
-| Spanish | es | 100% |
-| Estonian | et | 100% |
-| Finnish | fi | 100% |
-| French | fr | 100% |
-| Italian | it | 100% |
-| Japanese | ja | 100% |
-| Kazakh | kk | 100% |
-| Korean | ko | 100% |
-| Lithuanian | lt | 100% |
-| Latvian | lv | 100% |
-| Norwegian Bokmål | nb | 100% |
-| Dutch | nl | 100% |
-| Polish | pl | 100% |
-| Portuguese (Brazil) | pt_BR | 100% |
-| Swedish | sv | 100% |
-| Ukrainian | uk | 100% |
-| Vietnamese | vi | 100% |
-| Chinese (Simplified) | zh_CN | 100% |
+| Arabic | ar | 94.7% (252/266) |
+| German | de | 94.7% (252/266) |
+| Greek | el | 94.7% (252/266) |
+| Spanish | es | 94.7% (252/266) |
+| Estonian | et | 94.7% (252/266) |
+| Finnish | fi | 94.7% (252/266) |
+| French | fr | 94.7% (252/266) |
+| Italian | it | 94.7% (252/266) |
+| Japanese | ja | 94.7% (252/266) |
+| Kazakh | kk | 94.7% (252/266) |
+| Korean | ko | 94.7% (252/266) |
+| Lithuanian | lt | 94.7% (252/266) |
+| Latvian | lv | 94.7% (252/266) |
+| Norwegian Bokmål | nb | 94.7% (252/266) |
+| Dutch | nl | 94.7% (252/266) |
+| Polish | pl | 94.7% (252/266) |
+| Portuguese (Brazil) | pt_BR | 94.7% (252/266) |
+| Swedish | sv | 94.7% (252/266) |
+| Ukrainian | uk | 94.7% (252/266) |
+| Vietnamese | vi | 94.7% (252/266) |
+| Chinese (Simplified) | zh_CN | 94.7% (252/266) |
 
 ## Note
 

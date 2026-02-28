@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-26 10:50+0200\n"
+"POT-Creation-Date: 2026-02-27 17:25+0200\n"
 "PO-Revision-Date: 2026-02-14 18:04+0700\n"
 "Last-Translator: Loc Huynh <https://github.com/hthienloc>\n"
 "Language-Team: \n"
@@ -18,21 +18,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.8\n"
 
-#: src/application.vala:246
+#: src/application.vala:260
 msgid "Incompatible AppImage"
 msgstr "AppImage không tương thích"
 
-#: src/application.vala:247
+#: src/application.vala:261
 msgid ""
-"This AppImage is incompatible or corrupted. Missing required files (AppRun, "
-".desktop, or icon)."
+"This AppImage is incompatible or corrupted. Missing required files "
+"(AppRun, .desktop, or icon)."
 msgstr ""
-"AppImage này không tương thích hoặc bị hỏng. Thiếu các tệp bắt buộc (AppRun,"
-" .desktop hoặc biểu tượng)."
+"AppImage này không tương thích hoặc bị hỏng. Thiếu các tệp bắt buộc "
+"(AppRun, .desktop hoặc biểu tượng)."
 
 #. Architecture mismatch banner
-#: src/application.vala:248 src/application.vala:260 src/application.vala:780
-#: src/application.vala:835 src/application.vala:847
+#: src/application.vala:262 src/application.vala:274 src/application.vala:829
+#: src/application.vala:888 src/application.vala:900
 #: src/windows/dialog_window.vala:95 src/windows/drop_window.vala:99
 #: src/windows/drop_window.vala:109
 msgid "Close"
@@ -40,84 +40,84 @@ msgstr "Đóng"
 
 #. Check architecture
 #. Check architecture compatibility
-#: src/application.vala:256 src/windows/drop_window.vala:330
+#: src/application.vala:270 src/windows/drop_window.vala:330
 msgid "unknown"
 msgstr "không xác định"
 
-#: src/application.vala:258
+#: src/application.vala:272
 msgid "Architecture Mismatch"
 msgstr "Kiến trúc không khớp"
 
-#: src/application.vala:259 src/windows/drop_window.vala:331
+#: src/application.vala:273 src/windows/drop_window.vala:331
 #, c-format
 msgid "This app is built for %s and cannot run here"
 msgstr "Ứng dụng này được xây dựng cho %s và không thể chạy ở đây"
 
 #. Use app icon with warning badge overlay
-#: src/application.vala:356 src/windows/drop_window.vala:234
+#: src/application.vala:370 src/windows/drop_window.vala:234
 #, c-format
 msgid "Open %s?"
 msgstr "Mở %s?"
 
-#: src/application.vala:360 src/windows/drop_window.vala:237
+#: src/application.vala:374 src/windows/drop_window.vala:237
 #, c-format
 msgid ""
-"Origins of %s application can not be verified. Are you sure you want to open"
-" it?"
+"Origins of %s application can not be verified. Are you sure you want to open "
+"it?"
 msgstr ""
 "Không thể xác minh nguồn gốc của ứng dụng %s. Bạn có chắc chắn muốn mở nó "
 "không?"
 
-#: src/application.vala:363 src/windows/drop_window.vala:244
+#: src/application.vala:377 src/windows/drop_window.vala:244
 msgid "Install the AppImage to add it to your applications."
 msgstr "Cài đặt AppImage để thêm nó vào ứng dụng của bạn."
 
-#: src/application.vala:365 src/windows/drop_window.vala:247
+#: src/application.vala:379 src/windows/drop_window.vala:247
 msgid "Install"
 msgstr "Cài đặt"
 
-#: src/application.vala:366 src/application.vala:397
-#: src/windows/details_window.vala:911 src/windows/drop_window.vala:248
-#: src/windows/drop_window.vala:422 src/windows/drop_window.vala:1008
-#: src/windows/preferences_window.vala:432
+#: src/application.vala:380 src/application.vala:411 src/application.vala:813
+#: src/windows/details_window.vala:1027 src/windows/details_window.vala:1043
+#: src/windows/drop_window.vala:248 src/windows/drop_window.vala:422
+#: src/windows/drop_window.vala:1001 src/windows/preferences_window.vala:432
 #: src/windows/preferences_window.vala:466
 msgid "Cancel"
 msgstr "Hủy"
 
 #. Use icon with verification badge overlay
-#: src/application.vala:384 src/windows/drop_window.vala:418
+#: src/application.vala:398 src/windows/drop_window.vala:418
 #, c-format
 msgid "Update %s?"
 msgstr "Cập nhật %s?"
 
 #. App version
-#: src/application.vala:388 src/windows/details_window.vala:135
+#: src/application.vala:402 src/windows/details_window.vala:159
 #: src/windows/drop_window.vala:394
 msgid "Version unknown"
 msgstr "Không rõ phiên bản"
 
-#: src/application.vala:393 src/application.vala:536
+#: src/application.vala:407 src/application.vala:550
 #: src/windows/drop_window.vala:401 src/windows/drop_window.vala:558
 msgid "Unknown version"
 msgstr "Phiên bản không xác định"
 
-#: src/application.vala:394 src/windows/drop_window.vala:402
+#: src/application.vala:408 src/windows/drop_window.vala:402
 #, c-format
 msgid "Will update to version %s"
 msgstr "Sẽ cập nhật lên phiên bản %s"
 
-#: src/application.vala:396 src/windows/details_window.vala:819
+#: src/application.vala:410 src/windows/details_window.vala:894
 #: src/windows/drop_window.vala:421
 msgid "Update"
 msgstr "Cập nhật"
 
 #. Use icon with verification badge overlay
-#: src/application.vala:415 src/windows/drop_window.vala:448
+#: src/application.vala:429 src/windows/drop_window.vala:448
 #, c-format
 msgid "Replace %s?"
 msgstr "Thay thế %s?"
 
-#: src/application.vala:421 src/windows/drop_window.vala:452
+#: src/application.vala:435 src/windows/drop_window.vala:452
 #, c-format
 msgid ""
 "A newer item named %s already exists in this location. Do you want to "
@@ -126,12 +126,12 @@ msgstr ""
 "Một mục mới hơn có tên %s đã tồn tại ở vị trí này. Bạn có muốn thay thế nó "
 "bằng cái cũ hơn mà bạn đang sao chép không?"
 
-#: src/application.vala:423 src/windows/drop_window.vala:454
+#: src/application.vala:437 src/windows/drop_window.vala:454
 #, c-format
 msgid "Installed: %s | Incoming: %s"
 msgstr "Đã cài đặt: %s | Đang đến: %s"
 
-#: src/application.vala:427 src/windows/drop_window.vala:458
+#: src/application.vala:441 src/windows/drop_window.vala:458
 #, c-format
 msgid ""
 "An item named %s already exists in this location. Do you want to replace it "
@@ -140,78 +140,101 @@ msgstr ""
 "Một mục có tên %s đã tồn tại ở vị trí này. Bạn có muốn thay thế nó bằng một "
 "cái bạn đang sao chép không?"
 
-#: src/application.vala:432 src/windows/drop_window.vala:462
+#: src/application.vala:446 src/windows/drop_window.vala:462
 msgid "Stop"
 msgstr "Dừng"
 
-#: src/application.vala:433 src/windows/drop_window.vala:463
+#: src/application.vala:447 src/windows/drop_window.vala:463
 msgid "Replace"
 msgstr "Thay thế"
 
-#: src/application.vala:520 src/windows/drop_window.vala:541
+#: src/application.vala:534 src/windows/drop_window.vala:541
 msgid "Successfully Updated"
 msgstr "Đã cập nhật thành công"
 
-#: src/application.vala:520 src/windows/drop_window.vala:539
+#: src/application.vala:534 src/windows/drop_window.vala:539
 msgid "Successfully Installed"
 msgstr "Đã được cài đặt thành công"
 
-#: src/application.vala:537 src/windows/drop_window.vala:559
+#: src/application.vala:551 src/windows/drop_window.vala:559
 #, c-format
 msgid "Version %s"
 msgstr "Phiên bản %s"
 
-#: src/application.vala:541 src/windows/drop_window.vala:563
+#: src/application.vala:555 src/windows/drop_window.vala:563
 msgid "Open"
 msgstr "Mở"
 
-#: src/application.vala:542 src/windows/drop_window.vala:564
+#: src/application.vala:556 src/windows/drop_window.vala:564
 msgid "Done"
 msgstr "Xong"
 
-#: src/application.vala:567 src/windows/drop_window.vala:590
+#: src/application.vala:581 src/windows/drop_window.vala:590
 msgid "Installation failed"
 msgstr "Cài đặt không thành công"
 
-#: src/application.vala:569 src/windows/drop_window.vala:600
+#: src/application.vala:583 src/windows/drop_window.vala:600
 msgid "Dismiss"
 msgstr "Loại bỏ"
 
-#: src/application.vala:777
+#: src/application.vala:810
+#, fuzzy
+msgid "Cannot move to trash"
+msgstr "Chuyển vào Thùng rác"
+
+#: src/application.vala:811
+#, c-format
+msgid ""
+"%s could not be moved to the trash. Do you want to delete it permanently "
+"instead?\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+
+#: src/application.vala:814 src/windows/details_window.vala:1012
+#: src/windows/details_window.vala:1028
+msgid "Delete Permanently"
+msgstr ""
+
+#: src/application.vala:826
 msgid "Uninstall failed"
 msgstr "Gỡ cài đặt không thành công"
 
-#: src/application.vala:778
+#: src/application.vala:827
 #, c-format
 msgid "%s could not be removed: %s"
 msgstr "%s không thể xóa được: %s"
 
-#: src/application.vala:785
+#: src/application.vala:835
+msgid "Deleted permanently"
+msgstr ""
+
+#: src/application.vala:837
 msgid "Moved to Trash"
 msgstr "Đã được chuyển vào Thùng rác"
 
-#: src/application.vala:793
+#: src/application.vala:846
 msgid "Extraction is only available for portable installations."
 msgstr "Tính năng trích xuất chỉ khả dụng cho các bản cài đặt di động."
 
-#: src/application.vala:829
+#: src/application.vala:882
 msgid "Extracted for faster launch"
 msgstr "Được trích xuất để khởi chạy nhanh hơn"
 
-#: src/application.vala:832
+#: src/application.vala:885
 msgid "Extraction complete"
 msgstr "Quá trình trích xuất hoàn tất"
 
-#: src/application.vala:833
+#: src/application.vala:886
 #, c-format
 msgid "%s was extracted and will open faster."
 msgstr "%s đã được giải nén và sẽ mở nhanh hơn."
 
-#: src/application.vala:844
+#: src/application.vala:897
 msgid "Extraction failed"
 msgstr "Trích xuất không thành công"
 
-#: src/application.vala:845
+#: src/application.vala:898
 #, c-format
 msgid "%s could not be extracted: %s"
 msgstr "%s không thể trích xuất được: %s"
@@ -232,7 +255,7 @@ msgstr "%d có sẵn (các) bản cập nhật ứng dụng"
 msgid "Open AppManager"
 msgstr "Mở AppManager"
 
-#: src/core/installer.vala:614 src/windows/details_window.vala:771
+#: src/core/installer.vala:623 src/windows/details_window.vala:1015
 msgid "Move to Trash"
 msgstr "Chuyển vào Thùng rác"
 
@@ -326,38 +349,37 @@ msgstr "Không tìm thấy AppImage phù hợp cho %s"
 #: src/core/updater.vala:611 src/core/updater.vala:617
 #: src/core/updater.vala:679 src/core/updater.vala:687
 #: src/core/updater.vala:809 src/core/updater.vala:834
-#: src/core/updater.vala:1311 src/core/updater.vala:1339
-#: src/core/updater.vala:1351 src/core/updater.vala:1380
-#: src/core/updater.vala:1426 src/core/updater.vala:1437
-#: src/core/updater.vala:1461
+#: src/core/updater.vala:1320 src/core/updater.vala:1348
+#: src/core/updater.vala:1360 src/core/updater.vala:1389
+#: src/core/updater.vala:1435 src/core/updater.vala:1446
+#: src/core/updater.vala:1470
 msgid "Already up to date"
 msgstr "Đã cập nhật"
 
-#: src/core/updater.vala:726 src/core/updater.vala:1527
-#: src/core/updater.vala:1614
+#: src/core/updater.vala:726 src/core/updater.vala:1536
+#: src/core/updater.vala:1623
 #, c-format
 msgid "Updated to %s"
 msgstr "Đã cập nhật thành %s"
 
 #: src/core/updater.vala:797 src/core/updater.vala:827
-#: src/core/updater.vala:1367
+#: src/core/updater.vala:1376
 msgid "Server does not provide change tracking headers"
 msgstr "Máy chủ không cung cấp tiêu đề theo dõi thay đổi"
 
-#: src/core/updater.vala:805 src/core/updater.vala:1376
-#: src/core/updater.vala:1455
+#: src/core/updater.vala:805 src/core/updater.vala:1385
+#: src/core/updater.vala:1464
 msgid "Baseline recorded"
 msgstr "Đã ghi lại đường cơ sở"
 
-#: src/core/updater.vala:858 src/core/updater.vala:1528
-#: src/core/updater.vala:1615
+#: src/core/updater.vala:858 src/core/updater.vala:1537
+#: src/core/updater.vala:1624
 msgid "Updated"
 msgstr "Đã cập nhật"
 
 #: src/core/updater.vala:965
 msgid ""
-"GitHub authentication failed (401). Check your token in Preferences → "
-"GitHub."
+"GitHub authentication failed (401). Check your token in Preferences → GitHub."
 msgstr ""
 "Xác thực GitHub không thành công (401). Kiểm tra token của bạn trong Tùy "
 "chọn → GitHub."
@@ -374,189 +396,218 @@ msgstr ""
 msgid ""
 "GitHub access forbidden (403). Your token may lack the required permissions."
 msgstr ""
-"Truy cập GitHub bị cấm (403). Token của bạn có thể thiếu các quyền cần "
-"thiết."
+"Truy cập GitHub bị cấm (403). Token của bạn có thể thiếu các quyền cần thiết."
 
-#: src/core/updater.vala:1286
+#: src/core/updater.vala:1295
 msgid "Unknown zsync source type"
 msgstr "Loại nguồn zsync không xác định"
 
-#: src/core/updater.vala:1397
+#: src/core/updater.vala:1406
 msgid "Unknown zsync source"
 msgstr "Nguồn zsync không xác định"
 
-#: src/core/updater.vala:1568
+#: src/core/updater.vala:1577
 msgid "Cannot determine download URL from zsync URL"
 msgstr "Không thể xác định URL tải xuống từ URL zsync"
 
-#: src/windows/details_window.vala:100
+#: src/windows/details_window.vala:104
 #, c-format
 msgid "⚠️ '%s' is not in $PATH. App will not launch from the terminal"
 msgstr "⚠️ '%s' không có trong $PATH. Ứng dụng sẽ không khởi chạy từ terminal"
 
-#: src/windows/details_window.vala:160
+#: src/windows/details_window.vala:134
+#, fuzzy
+msgid "Launch Application"
+msgstr "Giải nén ứng dụng?"
+
+#: src/windows/details_window.vala:184
 msgid "Show in Files"
 msgstr "Hiển thị trong Tệp"
 
-#: src/windows/details_window.vala:162
+#: src/windows/details_window.vala:186
 msgid "Portable"
 msgstr "Di động"
 
-#: src/windows/details_window.vala:162
+#: src/windows/details_window.vala:186
 msgid "Extracted"
 msgstr "Đã được trích xuất"
 
 #. Terminal app card (only show if is_terminal)
-#: src/windows/details_window.vala:184
+#: src/windows/details_window.vala:208
 msgid "Terminal"
 msgstr "Terminal"
 
-#: src/windows/details_window.vala:192
+#: src/windows/details_window.vala:216
 msgid "This app supports efficient delta updates"
 msgstr "Ứng dụng này hỗ trợ cập nhật delta hiệu quả"
 
-#: src/windows/details_window.vala:199
+#: src/windows/details_window.vala:223
 msgid "Hidden"
 msgstr "Ẩn"
 
-#: src/windows/details_window.vala:209
+#: src/windows/details_window.vala:233
 msgid "Properties"
 msgstr "Thuộc tính"
 
-#: src/windows/details_window.vala:214
+#: src/windows/details_window.vala:238
 msgid "Command line arguments"
 msgstr "Đối số dòng lệnh"
 
-#: src/windows/details_window.vala:246
+#: src/windows/details_window.vala:270
 msgid "Update info"
 msgstr "Thông tin cập nhật"
 
-#: src/windows/details_window.vala:252
+#: src/windows/details_window.vala:276
 msgid "How update links work"
 msgstr "Cách liên kết cập nhật hoạt động"
 
-#: src/windows/details_window.vala:271
+#: src/windows/details_window.vala:288
+msgid "Pre-release Updates"
+msgstr ""
+
+#: src/windows/details_window.vala:289
+msgid "Include pre-release versions when checking for updates"
+msgstr ""
+
+#: src/windows/details_window.vala:304
+msgid "Update link is managed by the embedded zsync update mechanism"
+msgstr ""
+
+#: src/windows/details_window.vala:340
 msgid "Update Link"
 msgstr "Liên kết cập nhật"
 
-#: src/windows/details_window.vala:320
+#: src/windows/details_window.vala:395
 msgid "Web Page"
 msgstr "Trang web"
 
-#: src/windows/details_window.vala:349
+#: src/windows/details_window.vala:424
 msgid "Open web page"
 msgstr "Mở trang web"
 
-#: src/windows/details_window.vala:363
+#: src/windows/details_window.vala:438
 msgid "Advanced"
 msgstr "Nâng cao"
 
-#: src/windows/details_window.vala:390
+#: src/windows/details_window.vala:465
 msgid "Environment Variables"
 msgstr "Biến môi trường"
 
-#: src/windows/details_window.vala:391
+#: src/windows/details_window.vala:466
 msgid "Set custom environment variables for this app"
 msgstr "Đặt các biến môi trường tùy chỉnh cho ứng dụng này"
 
-#: src/windows/details_window.vala:444
+#: src/windows/details_window.vala:519
 msgid "NAME"
 msgstr "NAME"
 
-#: src/windows/details_window.vala:458
+#: src/windows/details_window.vala:533
 msgid "value"
 msgstr "giá trị"
 
-#: src/windows/details_window.vala:470
+#: src/windows/details_window.vala:545
 msgid "Remove variable"
 msgstr "Xóa biến"
 
-#: src/windows/details_window.vala:595
+#: src/windows/details_window.vala:670
 msgid "Keywords"
 msgstr "Từ khóa"
 
-#: src/windows/details_window.vala:605
+#: src/windows/details_window.vala:680
 msgid "Icon name"
 msgstr "Tên biểu tượng"
 
-#: src/windows/details_window.vala:615
+#: src/windows/details_window.vala:690
 msgid "Startup WM Class"
 msgstr "Lớp WM khởi động"
 
-#: src/windows/details_window.vala:625
+#: src/windows/details_window.vala:700
 msgid "Version"
 msgstr "Phiên bản"
 
-#: src/windows/details_window.vala:637
+#: src/windows/details_window.vala:712
 msgid "Hide from app drawer"
 msgstr "Ẩn khỏi ngăn kéo ứng dụng"
 
-#: src/windows/details_window.vala:638
+#: src/windows/details_window.vala:713
 msgid "Don't show in application menu"
 msgstr "Không hiển thị trong menu ứng dụng"
 
-#: src/windows/details_window.vala:649
+#: src/windows/details_window.vala:724
 msgid "Add to $PATH"
 msgstr "Thêm vào $PATH"
 
-#: src/windows/details_window.vala:650
+#: src/windows/details_window.vala:725
 #, c-format
 msgid "Create a launcher in %s so you can run it from the terminal"
 msgstr "Tạo launcher trong %s để bạn có thể chạy nó từ terminal"
 
-#: src/windows/details_window.vala:711
+#: src/windows/details_window.vala:786
 msgid "Actions"
 msgstr "Hành động"
 
 #. Extract button
-#: src/windows/details_window.vala:750
+#: src/windows/details_window.vala:825
 msgid "Extract AppImage"
 msgstr "Trích xuất hình ảnh ứng dụng"
 
-#: src/windows/details_window.vala:787
+#: src/windows/details_window.vala:862
 msgid "Restore default"
 msgstr "Khôi phục mặc định"
 
-#: src/windows/details_window.vala:799 src/windows/main_window.vala:493
-#: src/windows/main_window.vala:561
+#: src/windows/details_window.vala:874 src/windows/main_window.vala:501
+#: src/windows/main_window.vala:569
 msgid "Updating..."
 msgstr "Đang cập nhật..."
 
-#: src/windows/details_window.vala:801
+#: src/windows/details_window.vala:876
 msgid "Checking..."
 msgstr "Đang kiểm tra..."
 
-#: src/windows/details_window.vala:823
+#: src/windows/details_window.vala:898
 msgid "Check Update"
 msgstr "Kiểm tra cập nhật"
 
-#: src/windows/details_window.vala:889
+#: src/windows/details_window.vala:964
 msgid ""
 "Update info lets AppManager fetch new builds for you. Paste the download "
 "link and AppManager will do the rest."
 msgstr ""
-"Thông tin cập nhật cho phép AppManager tìm nạp các bản dựng mới cho bạn. Dán"
-" liên kết tải xuống và Apvà AppManager sẽ thực hiện phần còn lại."
+"Thông tin cập nhật cho phép AppManager tìm nạp các bản dựng mới cho bạn. Dán "
+"liên kết tải xuống và Apvà AppManager sẽ thực hiện phần còn lại."
 
-#: src/windows/details_window.vala:890
+#: src/windows/details_window.vala:965
 msgid ""
-"Currently GitHub and GitLab URL formats are fully supported. Direct download"
-" links also work if the server provides Last-Modified or Content-Length "
+"Currently GitHub and GitLab URL formats are fully supported. Direct download "
+"links also work if the server provides Last-Modified or Content-Length "
 "headers."
 msgstr ""
 "Hiện tại, các định dạng URL GitHub và GitLab được hỗ trợ đầy đủ. Liên kết "
 "tải xuống trực tiếp cũng hoạt động nếu máy chủ cung cấp tiêu đề Sửa đổi lần "
 "cuối hoặc Độ dài nội dung."
 
-#: src/windows/details_window.vala:891
+#: src/windows/details_window.vala:966
 msgid "Update links"
 msgstr "Liên kết cập nhật"
 
-#: src/windows/details_window.vala:892
+#: src/windows/details_window.vala:967
 msgid "Got it"
 msgstr "Hiểu rồi"
 
-#: src/windows/details_window.vala:909
+#: src/windows/details_window.vala:1017
+msgid "Hold Shift to delete permanently"
+msgstr ""
+
+#: src/windows/details_window.vala:1023
+#, c-format
+msgid "<b>%s</b> will be permanently deleted. This action cannot be undone."
+msgstr ""
+
+#: src/windows/details_window.vala:1024
+msgid "Delete permanently?"
+msgstr ""
+
+#: src/windows/details_window.vala:1041
 msgid ""
 "Extracting will unpack the application so it opens faster, but it will "
 "consume more disk space. This action cannot be reversed automatically."
@@ -565,11 +616,11 @@ msgstr ""
 "tốn nhiều dung lượng ổ đĩa hơn. Hành động này không thể tự động đảo ngược "
 "được."
 
-#: src/windows/details_window.vala:910
+#: src/windows/details_window.vala:1042
 msgid "Extract application?"
 msgstr "Giải nén ứng dụng?"
 
-#: src/windows/details_window.vala:912
+#: src/windows/details_window.vala:1044
 msgid "Extract"
 msgstr "Trích xuất"
 
@@ -586,7 +637,7 @@ msgid "AppImage Installer"
 msgstr "Trình cài đặt AppImage"
 
 #. Add Verify button to headerbar
-#: src/windows/drop_window.vala:91 src/windows/drop_window.vala:1014
+#: src/windows/drop_window.vala:91 src/windows/drop_window.vala:1007
 msgid "Verify"
 msgstr "Xác minh"
 
@@ -628,297 +679,309 @@ msgstr "Không thể chuẩn bị AppImage để cài đặt"
 msgid "Successfully Replaced"
 msgstr "Đã được thay thế thành công"
 
-#: src/windows/drop_window.vala:975
+#: src/windows/drop_window.vala:968
 msgid "Verify AppImage"
 msgstr "Xác minh AppImage"
 
-#: src/windows/drop_window.vala:993
+#: src/windows/drop_window.vala:986
 msgid "Verify the authenticity of this AppImage."
 msgstr "Xác minh tính xác thực của AppImage này."
 
-#: src/windows/drop_window.vala:999
+#: src/windows/drop_window.vala:992
 msgid "Enter the SHA256 hash "
 msgstr "Nhập hàm hash SHA256 "
 
-#: src/windows/main_window.vala:56 src/windows/main_window.vala:166
+#: src/windows/main_window.vala:59 src/windows/main_window.vala:174
 #: data/com.github.AppManager.metainfo.xml:4
 msgid "AppManager"
 msgstr "Trình quản lý ứng dụng"
 
-#: src/windows/main_window.vala:215
+#: src/windows/main_window.vala:223
 msgid "Get more ..."
 msgstr "Nhận thêm ..."
 
-#: src/windows/main_window.vala:227
+#: src/windows/main_window.vala:235
 msgid "Find more AppImages"
 msgstr "Tìm thêm Hình ảnh ứng dụng"
 
-#: src/windows/main_window.vala:228
+#: src/windows/main_window.vala:236
 msgid "Browse these sources to discover and download AppImages"
 msgstr "Duyệt qua các nguồn này để khám phá và tải xuống Hình ảnh ứng dụng"
 
-#: src/windows/main_window.vala:278 src/windows/main_window.vala:350
+#: src/windows/main_window.vala:286 src/windows/main_window.vala:358
 msgid "No AppImage apps installed"
 msgstr "Chưa cài đặt ứng dụng AppImage"
 
-#: src/windows/main_window.vala:283
+#: src/windows/main_window.vala:291
 msgid "Download AppImage and double click to install with AppManager"
 msgstr "Tải xuống AppImage và nhấp đúp để cài đặt bằng AppManager"
 
-#: src/windows/main_window.vala:350
+#: src/windows/main_window.vala:358
 msgid "No results found"
 msgstr "Không tìm thấy kết quả"
 
-#: src/windows/main_window.vala:429 src/windows/main_window.vala:892
+#: src/windows/main_window.vala:437 src/windows/main_window.vala:949
 msgid "My Apps"
 msgstr "Ứng dụng của tôi"
 
-#: src/windows/main_window.vala:500 src/windows/main_window.vala:568
+#: src/windows/main_window.vala:508 src/windows/main_window.vala:576
 msgid "Update available"
 msgstr "Đã có bản cập nhật"
 
 #. App name label (same size as list view)
-#: src/windows/main_window.vala:575
+#: src/windows/main_window.vala:583
 msgid "Unknown"
 msgstr "Không xác định"
 
-#: src/windows/main_window.vala:634
+#: src/windows/main_window.vala:676
 msgid "extracted"
 msgstr "được trích xuất"
 
-#: src/windows/main_window.vala:691
+#: src/windows/main_window.vala:733
 msgid "Updated just now"
 msgstr "Vừa mới cập nhật"
 
-#: src/windows/main_window.vala:691
+#: src/windows/main_window.vala:733
 msgid "Installed just now"
 msgstr "Vừa được cài đặt"
 
-#: src/windows/main_window.vala:699
+#: src/windows/main_window.vala:741
 #, c-format
 msgid "Updated %d min ago"
 msgstr "Đã cập nhật %d phút trước"
 
-#: src/windows/main_window.vala:699
+#: src/windows/main_window.vala:741
 #, c-format
 msgid "Installed %d min ago"
 msgstr "Đã cài đặt %d phút trước"
 
-#: src/windows/main_window.vala:707
+#: src/windows/main_window.vala:749
 #, c-format
 msgid "Updated %d hours ago"
 msgstr "Đã cập nhật %d giờ trước"
 
-#: src/windows/main_window.vala:707
+#: src/windows/main_window.vala:749
 #, c-format
 msgid "Installed %d hours ago"
 msgstr "Đã cài đặt %d giờ trước"
 
-#: src/windows/main_window.vala:714
+#: src/windows/main_window.vala:756
 #, c-format
 msgid "Updated %d days ago"
 msgstr "Đã cập nhật %d ngày trước"
 
-#: src/windows/main_window.vala:714
+#: src/windows/main_window.vala:756
 #, c-format
 msgid "Installed %d days ago"
 msgstr "Đã cài đặt %d ngày trước"
 
-#: src/windows/main_window.vala:730 src/windows/preferences_window.vala:34
+#: src/windows/main_window.vala:774
+msgid "Fullscreen"
+msgstr ""
+
+#: src/windows/main_window.vala:778 src/windows/preferences_window.vala:34
 msgid "Preferences"
 msgstr "Tùy chọn"
 
-#: src/windows/main_window.vala:731
+#: src/windows/main_window.vala:779
 msgid "Keyboard shortcuts"
 msgstr "Phím tắt"
 
-#: src/windows/main_window.vala:732 src/windows/main_window.vala:1515
+#: src/windows/main_window.vala:780 src/windows/main_window.vala:1641
 msgid "About AppManager"
 msgstr "Giới thiệu AppManager"
 
-#: src/windows/main_window.vala:733
+#: src/windows/main_window.vala:784
 msgid "Quit"
 msgstr "Thoát"
 
-#: src/windows/main_window.vala:745
+#: src/windows/main_window.vala:798
 msgid "Support AppManager"
 msgstr "Hỗ trợ AppManager"
 
-#: src/windows/main_window.vala:760
+#: src/windows/main_window.vala:813
 msgid "Buy Me a Coffee"
 msgstr "Mua cho tôi một ly cà phê"
 
-#: src/windows/main_window.vala:779
+#: src/windows/main_window.vala:832
 msgid "Become a sponsor on GitHub"
 msgstr "Trở thành nhà tài trợ trên GitHub"
 
-#: src/windows/main_window.vala:784
+#: src/windows/main_window.vala:837
 msgid "Sponsor Me ♡"
 msgstr "Tài trợ cho tôi ♡"
 
-#: src/windows/main_window.vala:795
+#: src/windows/main_window.vala:848
 msgid "Star AppManager on GitHub"
 msgstr "Star AppManager trên GitHub"
 
-#: src/windows/main_window.vala:800
+#: src/windows/main_window.vala:853
 msgid "Star AppManager"
 msgstr "Star AppManager"
 
-#: src/windows/main_window.vala:811
+#: src/windows/main_window.vala:864
 msgid "View contributors on GitHub"
 msgstr "Xem người đóng góp trên GitHub"
 
-#: src/windows/main_window.vala:816 src/windows/main_window.vala:1533
+#: src/windows/main_window.vala:869 src/windows/main_window.vala:1660
 msgid "Contributors"
 msgstr "Người đóng góp"
 
-#: src/windows/main_window.vala:839 src/windows/main_window.vala:1513
+#: src/windows/main_window.vala:892 src/windows/main_window.vala:1639
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: src/windows/main_window.vala:845
+#: src/windows/main_window.vala:898
 msgid "Support this project"
 msgstr "Hỗ trợ dự án này"
 
-#: src/windows/main_window.vala:855
+#: src/windows/main_window.vala:908
 msgid "More actions"
 msgstr "Các hành động khác"
 
-#: src/windows/main_window.vala:870
+#: src/windows/main_window.vala:923
 msgid "Search apps..."
 msgstr "Tìm kiếm ứng dụng..."
 
 #. FUSE is not installed warning banner
-#: src/windows/main_window.vala:878
+#: src/windows/main_window.vala:931
 msgid "FUSE is not installed. Some AppImages may fail to run"
 msgstr "FUSE chưa được cài đặt. Một số AppImages có thể không chạy được"
 
-#: src/windows/main_window.vala:880
+#: src/windows/main_window.vala:933
 msgid "Learn More"
 msgstr "Tìm hiểu thêm"
 
-#: src/windows/main_window.vala:926
+#: src/windows/main_window.vala:954
+msgid "Shift+click to launch app"
+msgstr ""
+
+#: src/windows/main_window.vala:991
 msgid "Switch to grid view"
 msgstr "Chuyển sang chế độ xem dạng lưới"
 
-#: src/windows/main_window.vala:929
+#: src/windows/main_window.vala:994
 msgid "Switch to list view"
 msgstr "Chuyển sang chế độ xem danh sách"
 
-#: src/windows/main_window.vala:999 src/windows/main_window.vala:1070
+#: src/windows/main_window.vala:1125 src/windows/main_window.vala:1196
 msgid "Updates already running"
 msgstr "Các bản cập nhật đã chạy"
 
-#: src/windows/main_window.vala:1047
+#: src/windows/main_window.vala:1173
 msgid "Cancel update"
 msgstr "Hủy cập nhật"
 
-#: src/windows/main_window.vala:1078
+#: src/windows/main_window.vala:1204
 msgid "Cancelling..."
 msgstr "Đang hủy..."
 
-#: src/windows/main_window.vala:1104
+#: src/windows/main_window.vala:1230
 msgid "Update check cancelled"
 msgstr "Đã hủy kiểm tra cập nhật"
 
-#: src/windows/main_window.vala:1134
+#: src/windows/main_window.vala:1260
 #, c-format
 msgid "%d app(s) have updates"
 msgstr "%d ứng dụng có bản cập nhật"
 
-#: src/windows/main_window.vala:1137
+#: src/windows/main_window.vala:1263
 msgid "No updates available right now"
 msgstr "Hiện không có bản cập nhật nào"
 
-#: src/windows/main_window.vala:1144
+#: src/windows/main_window.vala:1270
 msgid "Nothing queued for updating"
 msgstr "Không có gì phải xếp hàng để cập nhật"
 
-#: src/windows/main_window.vala:1171
+#: src/windows/main_window.vala:1297
 msgid "Update cancelled"
 msgstr "Đã hủy cập nhật"
 
-#: src/windows/main_window.vala:1308
+#: src/windows/main_window.vala:1434
 msgid "Checking updates"
 msgstr "Kiểm tra cập nhật"
 
-#: src/windows/main_window.vala:1311
+#: src/windows/main_window.vala:1437
 msgid "Update Apps"
 msgstr "Cập nhật ứng dụng"
 
-#: src/windows/main_window.vala:1314
+#: src/windows/main_window.vala:1440
 msgid "Updating apps"
 msgstr "Cập nhật ứng dụng"
 
-#: src/windows/main_window.vala:1317
+#: src/windows/main_window.vala:1443
 msgid "Check updates"
 msgstr "Kiểm tra cập nhật"
 
-#: src/windows/main_window.vala:1341
+#: src/windows/main_window.vala:1467
 msgid "No installed apps to update"
 msgstr "Không có ứng dụng nào được cài đặt để cập nhật"
 
-#: src/windows/main_window.vala:1381
+#: src/windows/main_window.vala:1507
 #, c-format
 msgid "Updated %d app(s)"
 msgstr "Đã cập nhật %d ứng dụng"
 
-#: src/windows/main_window.vala:1384
+#: src/windows/main_window.vala:1510
 #, c-format
 msgid "%d update(s) failed"
 msgstr "%d cập nhật không thành công"
 
-#: src/windows/main_window.vala:1392
+#: src/windows/main_window.vala:1518
 msgid "Add update addresses in Details to enable updates"
 msgstr "Thêm địa chỉ cập nhật trong Chi tiết để bật cập nhật"
 
-#: src/windows/main_window.vala:1394
+#: src/windows/main_window.vala:1520
 msgid "All supported apps are already up to date"
 msgstr "Tất cả các ứng dụng được hỗ trợ đều đã được cập nhật"
 
-#: src/windows/main_window.vala:1398
+#: src/windows/main_window.vala:1524
 #, c-format
 msgid "%d app(s) use unsupported update links"
 msgstr "%d ứng dụng sử dụng liên kết cập nhật không được hỗ trợ"
 
-#: src/windows/main_window.vala:1461
+#: src/windows/main_window.vala:1587
 #, c-format
 msgid "Update available for %s"
 msgstr "Đã có bản cập nhật cho %s"
 
-#: src/windows/main_window.vala:1501
+#: src/windows/main_window.vala:1627
 msgid "General"
 msgstr "Tổng quan"
 
-#: src/windows/main_window.vala:1505
+#: src/windows/main_window.vala:1631
 msgid "Navigation"
 msgstr "Điều hướng"
 
-#: src/windows/main_window.vala:1509
+#: src/windows/main_window.vala:1635
 msgid "Window"
 msgstr "Cửa sổ"
 
-#: src/windows/main_window.vala:1511
+#: src/windows/main_window.vala:1637
 msgid "Check for updates"
 msgstr "Kiểm tra các bản cập nhật"
 
-#: src/windows/main_window.vala:1512
+#: src/windows/main_window.vala:1638
 msgid "Show main menu"
 msgstr "Hiển thị menu chính"
 
-#: src/windows/main_window.vala:1514
+#: src/windows/main_window.vala:1640
 msgid "Show shortcuts"
 msgstr "Hiển thị phím tắt"
 
-#: src/windows/main_window.vala:1516
+#: src/windows/main_window.vala:1642
 msgid "Close window"
 msgstr "Đóng cửa sổ"
 
-#: src/windows/main_window.vala:1517
+#: src/windows/main_window.vala:1643
 msgid "Quit AppManager"
 msgstr "Thoát AppManager"
 
-#: src/windows/main_window.vala:1534
+#: src/windows/main_window.vala:1644
+msgid "Toggle fullscreen"
+msgstr ""
+
+#: src/windows/main_window.vala:1661
 msgid "Credits"
 msgstr "Loc Huynh <https://github.com/hthienloc>"
 
@@ -1034,8 +1097,8 @@ msgid ""
 "Authenticate with GitHub to raise the API rate limit from 60 to 5,000 "
 "requests per hour"
 msgstr ""
-"Xác thực bằng GitHub để tăng giới hạn tốc độ API từ 60 lên 5.000 yêu cầu mỗi"
-" giờ"
+"Xác thực bằng GitHub để tăng giới hạn tốc độ API từ 60 lên 5.000 yêu cầu mỗi "
+"giờ"
 
 #: src/windows/preferences_window.vala:215
 msgid "Personal access token"
@@ -1065,8 +1128,7 @@ msgstr "Token kiểm tra"
 
 #: src/windows/preferences_window.vala:256
 msgid "Verify your token works and check rate limit status"
-msgstr ""
-"Xác minh token của bạn hoạt động và kiểm tra trạng thái giới hạn tỷ lệ"
+msgstr "Xác minh token của bạn hoạt động và kiểm tra trạng thái giới hạn tỷ lệ"
 
 #: src/windows/preferences_window.vala:260
 msgid "Test"
@@ -1182,7 +1244,7 @@ msgid ""
 "drop workflow inspired by macOS. It handles desktop integration, icon "
 "extraction, executable bits, and Nautilus context menus."
 msgstr ""
-"AppManager cho phép bạn cài đặt hoặc gỡ cài đặt AppImages bằng quy trình làm"
-" việc kéo và thả quen thuộc lấy cảm hứng từ macOS. Nó xử lý việc tích hợp "
-"máy tính để bàn, trích xuất biểu tượng, các bit thực thi và menu ngữ cảnh "
+"AppManager cho phép bạn cài đặt hoặc gỡ cài đặt AppImages bằng quy trình làm "
+"việc kéo và thả quen thuộc lấy cảm hứng từ macOS. Nó xử lý việc tích hợp máy "
+"tính để bàn, trích xuất biểu tượng, các bit thực thi và menu ngữ cảnh "
 "Nautilus."
