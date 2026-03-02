@@ -208,7 +208,7 @@ namespace AppManager.Utils {
                 rotation = rotation.translate(Graphene.Point() { x = -w, y = -h });
                 widget.allocate(widget.get_width(), widget.get_height(), -1, rotation);
             });
-            var animation = new Adw.TimedAnimation(widget, 0, 360, 600, target);
+            var animation = new Adw.TimedAnimation(widget, 0, 720, 800, target);
             animation.set_easing(Adw.Easing.EASE_IN_OUT_CUBIC);
             animation.play();
         }

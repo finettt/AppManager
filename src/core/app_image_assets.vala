@@ -248,6 +248,16 @@ namespace AppManager.Core {
         }
 
         public static string? extract_version_from_metainfo(string appimage_path, string temp_root) {
+            var metainfo_root = ensure_metainfo_extracted(appimage_path, temp_root);
+            return find_version_in_dir_recursive(metainfo_root);
+        }
+
+        public static string? extract_summary_from_metainfo(string appimage_path, string temp_root) {
+            var metainfo_root = ensure_metainfo_extracted(appimage_path, temp_root);
+            return find_summary_in_dir_recursive(metainfo_root);
+        }
+
+        private static string ensure_metainfo_extracted(string appimage_path, string temp_root) {
             var metainfo_root = Path.build_filename(temp_root, "metainfo");
             DirUtils.create_with_parents(metainfo_root, 0755);
 
@@ -263,7 +273,7 @@ namespace AppManager.Core {
                 extract_entry(appimage_path, metainfo_root, pattern);
             }
 
-            return find_version_in_dir_recursive(metainfo_root);
+            return metainfo_root;
         }
 
         public static string ensure_apprun_present(string extracted_root) throws Error {
@@ -631,6 +641,56 @@ namespace AppManager.Core {
             }
 
             throw new AppImageAssetsError.SYMLINK_LIMIT_EXCEEDED("Symlink chain exceeded %d iterations".printf(MAX_SYMLINK_ITERATIONS));
+        }
+
+        private static string? find_summary_in_dir_recursive(string dir_path) {
+            try {
+                var dir = Dir.open(dir_path);
+                string? name;
+                while ((name = dir.read_name()) != null) {
+                    var path = Path.build_filename(dir_path, name);
+
+                    if (FileUtils.test(path, FileTest.IS_DIR)) {
+                        var summary = find_summary_in_dir_recursive(path);
+                        if (summary != null) {
+                            return summary;
+                        }
+                    } else if (name.has_suffix(".metainfo.xml") || name.has_suffix(".appdata.xml")) {
+                        var summary = parse_metainfo_summary(path);
+                        if (summary != null) {
+                            return summary;
+                        }
+                    }
+                }
+            } catch (Error e) {
+                debug("Failed to search metainfo dir %s: %s", dir_path, e.message);
+            }
+            return null;
+        }
+
+        private static string? parse_metainfo_summary(string xml_path) {
+            try {
+                string contents;
+                FileUtils.get_contents(xml_path, out contents);
+
+                var start_tag = "<summary>";
+                var end_tag = "</summary>";
+                var start = contents.index_of(start_tag);
+                if (start < 0) return null;
+
+                start += start_tag.length;
+                var end = contents.index_of(end_tag, start);
+                if (end < 0) return null;
+
+                var summary = contents.substring(start, end - start).strip();
+                if (summary.length > 0) {
+                    debug("Found summary in metainfo: %s", xml_path);
+                    return summary;
+                }
+            } catch (Error e) {
+                debug("Failed to parse metainfo summary %s: %s", xml_path, e.message);
+            }
+            return null;
         }
 
         private static string? find_version_in_dir_recursive(string dir_path) {

@@ -6,7 +6,7 @@
     <name>Arnis Kemlers</name>
   </developer>
   <developer_name>Arnis Kemlers</developer_name>
-  <summary>Drag-and-drop AppImage installer for GNOME</summary>
+  <summary>Drag-and-drop AppImage installer and management application</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
 
@@ -32,7 +32,7 @@
     <license>Artistic-2.0</license>
   </bundle>
   <description>
-    <p>AppManager lets you install or uninstall AppImages with a familiar drag-and-drop workflow inspired by macOS. It handles desktop integration, icon extraction, executable bits, and Nautilus context menus.</p>
+    <p>AppManager lets you install or uninstall AppImages with a familiar drag-and-drop workflow inspired by macOS. It handles desktop integration, icon extraction, executable bits, and app updates.</p>
   </description>
   <launchable type="desktop-id">com.github.AppManager.desktop</launchable>
   <url type="homepage">https://github.com/kem-a/AppManager</url>

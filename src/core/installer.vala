@@ -317,9 +317,16 @@ namespace AppManager.Core {
                 }
                 
                 is_terminal_app = desktop_entry.terminal;
+
+                // App description: prefer metainfo <summary>, fall back to desktop Comment
+                string? app_description = AppImageAssets.extract_summary_from_metainfo(assets_path, temp_dir);
+                if (app_description == null && desktop_entry.comment != null && desktop_entry.comment.strip() != "") {
+                    app_description = desktop_entry.comment.strip();
+                }
                 
                 record.name = desktop_name;
                 record.version = desktop_version;
+                record.description = app_description;
                 record.is_terminal = is_terminal_app;
                 
                 // For fresh installs or upgrades, apply history now that we have the real app name

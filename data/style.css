@@ -108,3 +108,10 @@
     border-radius: 12px;
     transition: background-color 150ms ease-in-out;
 }
+
+/* Small pill-shaped "Open" button in details header */
+button.open-button {
+    min-height: 0;
+    min-width: 0;
+    padding: 4px 16px;
+}

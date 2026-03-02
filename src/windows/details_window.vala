@@ -119,52 +119,104 @@ namespace AppManager {
         private Adw.PreferencesGroup build_header_group() {
             var header_group = new Adw.PreferencesGroup();
             
-            var header_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
-            header_box.set_halign(Gtk.Align.CENTER);
-            header_box.set_margin_top(24);
+            var header_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 16);
+            header_box.set_halign(Gtk.Align.START);
+            header_box.set_margin_top(12); // Top padding above icon/name container
             header_box.set_margin_bottom(12);
+            header_box.set_margin_start(12);
+            header_box.set_size_request(-1, 128); // Fixed height matching icon size
             
-            // App icon (clickable to launch)
+            // App icon on the left
             header_icon = null;
             if (record.icon_path != null && record.icon_path.strip() != "") {
                 var icon_image = UiUtils.load_app_icon(record.icon_path);
                 if (icon_image != null) {
                     icon_image.set_pixel_size(128);
                     header_icon = icon_image;
-
-                    var icon_button = new Gtk.Button();
-                    icon_button.set_child(icon_image);
-                    icon_button.add_css_class("flat");
-                    icon_button.set_halign(Gtk.Align.CENTER);
-                    icon_button.set_cursor(new Gdk.Cursor.from_name("pointer", null));
-                    icon_button.set_tooltip_text(_("Launch Application"));
-                    icon_button.clicked.connect(() => {
-                        try {
-                            var app_info = new DesktopAppInfo.from_filename(record.desktop_file);
-                            if (app_info != null) {
-                                UiUtils.spin_launch_icon(icon_image);
-                                app_info.launch(null, null);
-                            }
-                        } catch (Error e) {
-                            warning("Failed to launch %s: %s", record.name, e.message);
-                        }
-                    });
-                    header_box.append(icon_button);
+                    icon_image.set_valign(Gtk.Align.START);
+                    header_box.append(icon_image);
                 }
             }
+            
+            // Right side: name, description, open button
+            var info_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 4);
+            info_box.set_valign(Gtk.Align.FILL);
+            info_box.set_vexpand(true);
             
             // App name
             var name_label = new Gtk.Label(record.name);
             name_label.add_css_class("title-1");
             name_label.set_wrap(true);
             name_label.set_wrap_mode(Pango.WrapMode.WORD_CHAR);
-            name_label.set_justify(Gtk.Justification.CENTER);
-            header_box.append(name_label);
+            name_label.set_xalign(0);
+            name_label.set_valign(Gtk.Align.START);
+            info_box.append(name_label);
             
-            // App version
-            var version_label = new Gtk.Label(record.version ?? _("Version unknown"));
-            version_label.add_css_class("dim-label");
-            header_box.append(version_label);
+            // App description: from record (metainfo/desktop), fallback to desktop Comment
+            var app_description = record.description;
+            if (app_description == null) {
+                app_description = desktop_props.get("Comment");
+            }
+            if (app_description != null) {
+                var desc_label = new Gtk.Label(app_description);
+                desc_label.add_css_class("dimmed");
+                desc_label.set_xalign(0);
+                desc_label.set_ellipsize(Pango.EllipsizeMode.END);
+                desc_label.set_max_width_chars(40);
+                desc_label.set_lines(2);
+                desc_label.set_single_line_mode(false);
+                desc_label.set_valign(Gtk.Align.START);
+                info_box.append(desc_label);
+            }
+
+            // Spacer to push open button to bottom
+            var spacer = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            spacer.set_vexpand(true);
+            info_box.append(spacer);
+            
+            // Open button with launch spinner
+            var open_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            open_box.set_halign(Gtk.Align.START);
+            open_box.set_valign(Gtk.Align.END);
+
+            var open_button = new Gtk.Button.with_label(_("Open"));
+            open_button.add_css_class("pill");
+            open_button.add_css_class("suggested-action");
+            open_button.add_css_class("open-button");
+
+            var launch_spinner = new Gtk.Spinner();
+            launch_spinner.set_visible(false);
+
+            open_button.clicked.connect(() => {
+                try {
+                    var app_info = new DesktopAppInfo.from_filename(record.desktop_file);
+                    if (app_info != null) {
+                        if (header_icon != null) {
+                            UiUtils.spin_launch_icon(header_icon as Gtk.Image);
+                        }
+                        app_info.launch(null, null);
+
+                        // Show spinner for 3 seconds as launch feedback
+                        launch_spinner.set_visible(true);
+                        launch_spinner.start();
+                        open_button.sensitive = false;
+                        Timeout.add(3000, () => {
+                            launch_spinner.stop();
+                            launch_spinner.set_visible(false);
+                            open_button.sensitive = true;
+                            return Source.REMOVE;
+                        });
+                    }
+                } catch (Error e) {
+                    warning("Failed to launch %s: %s", record.name, e.message);
+                }
+            });
+
+            open_box.append(open_button);
+            open_box.append(launch_spinner);
+            info_box.append(open_box);
+            
+            header_box.append(info_box);
             
             var header_row = new Adw.PreferencesRow();
             header_row.set_activatable(false);
@@ -203,6 +255,13 @@ namespace AppManager {
                 UiUtils.open_folder(target_path, parent_window);
             });
             cards_box.append(mode_button);
+            
+            // Version card (only show if version is known)
+            if (record.version != null && record.version.strip() != "") {
+                var version_card = create_info_card(record.version);
+                version_card.set_tooltip_text(_("App version"));
+                cards_box.append(version_card);
+            }
             
             // Size on disk card
             var size = calculate_installation_size(record);
@@ -994,6 +1053,10 @@ namespace AppManager {
             var entry = new DesktopEntry(desktop_file_path);
             if (entry.no_display) {
                 props.set("NoDisplay", "true");
+            }
+
+            if (entry.comment != null && entry.comment.strip() != "") {
+                props.set("Comment", entry.comment.strip());
             }
             
             return props;

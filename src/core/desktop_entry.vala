@@ -16,6 +16,7 @@ namespace AppManager.Core {
         public string? mime_type { get; set; }
         public string? appimage_homepage { get; set; }
         public string? appimage_update_url { get; set; }
+        public string? comment { get; set; }
         public string? appimage_version { get; set; }
         public string? actions { get; set; }
 
@@ -36,6 +37,7 @@ namespace AppManager.Core {
             
             // Standard keys
             name = get_string("Name");
+            comment = get_string("Comment");
             exec = get_string("Exec");
             icon = get_string("Icon");
             keywords = get_string("Keywords");
@@ -59,6 +61,7 @@ namespace AppManager.Core {
             }
 
             set_string("Name", name);
+            set_string("Comment", comment);
             set_string("Exec", exec);
             set_string("Icon", icon);
             set_string("Keywords", keywords);
@@ -78,6 +81,7 @@ namespace AppManager.Core {
 
         public string to_data() {
             set_string("Name", name);
+            set_string("Comment", comment);
             set_string("Exec", exec);
             set_string("Icon", icon);
             set_string("Keywords", keywords);
