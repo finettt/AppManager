@@ -167,29 +167,10 @@ echo "---------------------------------------------------------------"
 #   /usr/lib/gio/modules/libgiognutls.so \
 #   /usr/lib/gio/modules/libgiolibproxy.so
 
-# ── Fix locale directory after quick-sharun debloating ────────────────
-# quick-sharun's DEBLOAT_LOCALE:
-#   1. Deletes .mo files not matching a bundled binary name (removes libadwaita.mo)
-#   2. Only deletes regular files — broken symlinks (iso_*.mo) are left behind
-#   3. Leaves empty/junk language dirs (e.g. ru/) that the app doesn't ship
-#
-# Fix: remove broken symlinks, purge unwanted language dirs, restore libadwaita.mo.
-echo "Cleaning up locale directory..."
-
-# Remove broken symlinks left by debloating
-find "$APPDIR"/share/locale -xtype l -delete 2>/dev/null || true
-
-# Remove language directories not in our LINGUAS
-for lang_dir in "$APPDIR"/share/locale/*/; do
-    [ -d "$lang_dir" ] || continue
-    lang="${lang_dir%/}"
-    lang="${lang##*/}"
-    if ! grep -qx "$lang" po/LINGUAS; then
-        rm -rf "$lang_dir"
-    fi
-done
-
-# Restore libadwaita translations for our languages
+# ── Restore library locale files removed by quick-sharun debloating ──
+# quick-sharun's DEBLOAT_LOCALE deletes .mo files that don't match a
+# bundled binary name — this removes libadwaita translations.
+# Restore them only for languages the app actually ships (po/LINGUAS).
 echo "Restoring libadwaita locale files..."
 while IFS= read -r lang; do
     case "$lang" in \#*|"") continue ;; esac
