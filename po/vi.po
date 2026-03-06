@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the app-manager package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr "Project-Id-Version: app-manager\n"
 "Report-Msgid-Bugs-To: \n"
@@ -171,7 +170,6 @@ msgstr "Loại bỏ"
 
 #. Offer to delete permanently as fallback
 #: src/application.vala:816
-#, fuzzy
 msgid "Cannot move to trash"
 msgstr "Chuyển vào Thùng rác"
 
@@ -201,7 +199,7 @@ msgid "Deleted permanently"
 msgstr ""
 
 #: src/application.vala:843 src/application.vala:849
-#, fuzzy, c-format
+#, c-format
 msgid "%s moved to Trash"
 msgstr "Đã được chuyển vào Thùng rác"
 
@@ -210,12 +208,10 @@ msgid "Undo"
 msgstr ""
 
 #: src/application.vala:876
-#, fuzzy
 msgid "Undo failed"
 msgstr "Gỡ cài đặt không thành công"
 
 #: src/application.vala:879
-#, fuzzy
 msgid "Restored"
 msgstr "Khôi phục mặc định"
 
@@ -257,12 +253,11 @@ msgid "%d app update(s) available"
 msgstr "%d có sẵn (các) bản cập nhật ứng dụng"
 
 #: src/core/background_update_service.vala:312
-#, fuzzy
 msgid "App updates failed"
 msgstr "Có sẵn bản cập nhật ứng dụng"
 
 #: src/core/background_update_service.vala:313
-#, fuzzy, c-format
+#, c-format
 msgid "%d app update(s) failed"
 msgstr "%d cập nhật không thành công"
 
@@ -381,7 +376,6 @@ msgstr "Đã cập nhật thành %s"
 
 #. All candidates failed identity verification
 #: src/core/updater.vala:754 src/core/updater.vala:756
-#, fuzzy
 msgid "App identity mismatch"
 msgstr "Kiến trúc không khớp"
 
@@ -460,7 +454,6 @@ msgid "Extracted"
 msgstr "Đã được trích xuất"
 
 #: src/windows/details_window.vala:256
-#, fuzzy
 msgid "App version"
 msgstr "Phiên bản"
 
@@ -597,7 +590,6 @@ msgid "Checking..."
 msgstr "Đang kiểm tra..."
 
 #: src/windows/details_window.vala:962
-#, fuzzy
 msgid "Update Failed"
 msgstr "Đã có bản cập nhật"
 
@@ -932,7 +924,6 @@ msgid "Update cancelled"
 msgstr "Đã hủy cập nhật"
 
 #: src/windows/main_window.vala:1385 src/windows/main_window.vala:1405
-#, fuzzy
 msgid "Update failed"
 msgstr "Đã có bản cập nhật"
 
@@ -1274,12 +1265,10 @@ msgid "Arnis Kemlers"
 msgstr "Arnis Kemlers"
 
 #: data/com.github.AppManager.metainfo.xml:9
-#, fuzzy
 msgid "Drag-and-drop AppImage installer and management application"
 msgstr "Trình cài đặt AppImage kéo và thả cho GNOME"
 
 #: data/com.github.AppManager.metainfo.xml:35
-#, fuzzy
 msgid ""
 "AppManager lets you install or uninstall AppImages with a familiar drag-and-"
 "drop workflow inspired by macOS. It handles desktop integration, icon "
@@ -1290,6 +1279,5 @@ msgstr ""
 "tính để bàn, trích xuất biểu tượng, các bit thực thi và menu ngữ cảnh "
 "Nautilus."
 
-#, fuzzy
 #~ msgid "Launch Application"
 #~ msgstr "Giải nén ứng dụng?"

@@ -167,7 +167,6 @@ msgstr "해고하다"
 
 #. Offer to delete permanently as fallback
 #: src/application.vala:816
-#, fuzzy
 msgid "Cannot move to trash"
 msgstr "휴지통으로 이동"
 
@@ -197,7 +196,7 @@ msgid "Deleted permanently"
 msgstr ""
 
 #: src/application.vala:843 src/application.vala:849
-#, fuzzy, c-format
+#, c-format
 msgid "%s moved to Trash"
 msgstr "휴지통으로 이동됨"
 
@@ -206,12 +205,10 @@ msgid "Undo"
 msgstr ""
 
 #: src/application.vala:876
-#, fuzzy
 msgid "Undo failed"
 msgstr "제거 실패"
 
 #: src/application.vala:879
-#, fuzzy
 msgid "Restored"
 msgstr "기본값 복원"
 
@@ -253,12 +250,11 @@ msgid "%d app update(s) available"
 msgstr "%d 앱 업데이트 사용 가능"
 
 #: src/core/background_update_service.vala:312
-#, fuzzy
 msgid "App updates failed"
 msgstr "앱 업데이트 가능"
 
 #: src/core/background_update_service.vala:313
-#, fuzzy, c-format
+#, c-format
 msgid "%d app update(s) failed"
 msgstr "%d 업데이트 실패"
 
@@ -377,7 +373,6 @@ msgstr "%s으로 업데이트됨"
 
 #. All candidates failed identity verification
 #: src/core/updater.vala:754 src/core/updater.vala:756
-#, fuzzy
 msgid "App identity mismatch"
 msgstr "아키텍처 불일치"
 
@@ -453,7 +448,6 @@ msgid "Extracted"
 msgstr "추출됨"
 
 #: src/windows/details_window.vala:256
-#, fuzzy
 msgid "App version"
 msgstr "버전"
 
@@ -590,7 +584,6 @@ msgid "Checking..."
 msgstr "확인 중..."
 
 #: src/windows/details_window.vala:962
-#, fuzzy
 msgid "Update Failed"
 msgstr "업데이트 가능"
 
@@ -923,7 +916,6 @@ msgid "Update cancelled"
 msgstr "업데이트가 취소되었습니다."
 
 #: src/windows/main_window.vala:1385 src/windows/main_window.vala:1405
-#, fuzzy
 msgid "Update failed"
 msgstr "업데이트 가능"
 
@@ -1264,12 +1256,10 @@ msgid "Arnis Kemlers"
 msgstr "아르니스 케믈러스"
 
 #: data/com.github.AppManager.metainfo.xml:9
-#, fuzzy
 msgid "Drag-and-drop AppImage installer and management application"
 msgstr "GNOME용 드래그 앤 드롭 AppImage 설치 프로그램"
 
 #: data/com.github.AppManager.metainfo.xml:35
-#, fuzzy
 msgid ""
 "AppManager lets you install or uninstall AppImages with a familiar drag-and-"
 "drop workflow inspired by macOS. It handles desktop integration, icon "
@@ -1279,6 +1269,5 @@ msgstr ""
 "을 통해 AppImages를 설치하거나 제거할 수 있습니다. 데스크탑 통합, 아이콘 추"
 "출, 실행 가능 비트 및 노틸러스 컨텍스트 메뉴를 처리합니다."
 
-#, fuzzy
 #~ msgid "Launch Application"
 #~ msgstr "애플리케이션을 추출하시겠습니까?"

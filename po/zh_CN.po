@@ -164,7 +164,6 @@ msgstr "关闭"
 
 #. Offer to delete permanently as fallback
 #: src/application.vala:816
-#, fuzzy
 msgid "Cannot move to trash"
 msgstr "移到回收站"
 
@@ -194,7 +193,7 @@ msgid "Deleted permanently"
 msgstr ""
 
 #: src/application.vala:843 src/application.vala:849
-#, fuzzy, c-format
+#, c-format
 msgid "%s moved to Trash"
 msgstr "已移至回收站"
 
@@ -203,12 +202,10 @@ msgid "Undo"
 msgstr ""
 
 #: src/application.vala:876
-#, fuzzy
 msgid "Undo failed"
 msgstr "卸载失败"
 
 #: src/application.vala:879
-#, fuzzy
 msgid "Restored"
 msgstr "恢复默认"
 
@@ -250,12 +247,11 @@ msgid "%d app update(s) available"
 msgstr "%d 个应用更新可用"
 
 #: src/core/background_update_service.vala:312
-#, fuzzy
 msgid "App updates failed"
 msgstr "有应用更新"
 
 #: src/core/background_update_service.vala:313
-#, fuzzy, c-format
+#, c-format
 msgid "%d app update(s) failed"
 msgstr "%d 个更新失败"
 
@@ -374,7 +370,6 @@ msgstr "更新至 %s"
 
 #. All candidates failed identity verification
 #: src/core/updater.vala:754 src/core/updater.vala:756
-#, fuzzy
 msgid "App identity mismatch"
 msgstr "架构不匹配"
 
@@ -450,7 +445,6 @@ msgid "Extracted"
 msgstr "已解压"
 
 #: src/windows/details_window.vala:256
-#, fuzzy
 msgid "App version"
 msgstr "版本"
 
@@ -587,7 +581,6 @@ msgid "Checking..."
 msgstr "正在检查..."
 
 #: src/windows/details_window.vala:962
-#, fuzzy
 msgid "Update Failed"
 msgstr "有可用更新"
 
@@ -919,7 +912,6 @@ msgid "Update cancelled"
 msgstr "更新已取消"
 
 #: src/windows/main_window.vala:1385 src/windows/main_window.vala:1405
-#, fuzzy
 msgid "Update failed"
 msgstr "有可用更新"
 
@@ -1261,12 +1253,10 @@ msgid "Arnis Kemlers"
 msgstr "阿尼斯·凯姆勒斯"
 
 #: data/com.github.AppManager.metainfo.xml:9
-#, fuzzy
 msgid "Drag-and-drop AppImage installer and management application"
 msgstr "适用于 GNOME 的拖放式 AppImage 安装程序"
 
 #: data/com.github.AppManager.metainfo.xml:35
-#, fuzzy
 msgid ""
 "AppManager lets you install or uninstall AppImages with a familiar drag-and-"
 "drop workflow inspired by macOS. It handles desktop integration, icon "
@@ -1275,6 +1265,5 @@ msgstr ""
 "AppManager 允许您使用受 macOS 启发的熟悉的拖放工作流程来安装或卸载 "
 "AppImages。它处理桌面集成、图标提取、可执行位和 Nautilus 上下文菜单。"
 
-#, fuzzy
 #~ msgid "Launch Application"
 #~ msgstr "解压应用程序？"

@@ -166,7 +166,6 @@ msgstr "رفض"
 
 #. Offer to delete permanently as fallback
 #: src/application.vala:816
-#, fuzzy
 msgid "Cannot move to trash"
 msgstr "الانتقال إلى سلة المهملات"
 
@@ -196,7 +195,7 @@ msgid "Deleted permanently"
 msgstr ""
 
 #: src/application.vala:843 src/application.vala:849
-#, fuzzy, c-format
+#, c-format
 msgid "%s moved to Trash"
 msgstr "تم النقل إلى سلة المهملات"
 
@@ -205,12 +204,10 @@ msgid "Undo"
 msgstr ""
 
 #: src/application.vala:876
-#, fuzzy
 msgid "Undo failed"
 msgstr "فشل إلغاء التثبيت"
 
 #: src/application.vala:879
-#, fuzzy
 msgid "Restored"
 msgstr "استعادة الافتراضي"
 
@@ -252,12 +249,11 @@ msgid "%d app update(s) available"
 msgstr "%d تحديث (تحديثات) التطبيق متاحة"
 
 #: src/core/background_update_service.vala:312
-#, fuzzy
 msgid "App updates failed"
 msgstr "تحديثات التطبيق متاحة"
 
 #: src/core/background_update_service.vala:313
-#, fuzzy, c-format
+#, c-format
 msgid "%d app update(s) failed"
 msgstr "فشل تحديث (تحديثات) %d"
 
@@ -376,7 +372,6 @@ msgstr "تم التحديث إلى %s"
 
 #. All candidates failed identity verification
 #: src/core/updater.vala:754 src/core/updater.vala:756
-#, fuzzy
 msgid "App identity mismatch"
 msgstr "عدم تطابق الهندسة المعمارية"
 
@@ -455,7 +450,6 @@ msgid "Extracted"
 msgstr "مستخرج"
 
 #: src/windows/details_window.vala:256
-#, fuzzy
 msgid "App version"
 msgstr "إصدار"
 
@@ -592,7 +586,6 @@ msgid "Checking..."
 msgstr "جارٍ التحقق..."
 
 #: src/windows/details_window.vala:962
-#, fuzzy
 msgid "Update Failed"
 msgstr "التحديث متاح"
 
@@ -925,7 +918,6 @@ msgid "Update cancelled"
 msgstr "تم إلغاء التحديث"
 
 #: src/windows/main_window.vala:1385 src/windows/main_window.vala:1405
-#, fuzzy
 msgid "Update failed"
 msgstr "التحديث متاح"
 
@@ -1268,12 +1260,10 @@ msgid "Arnis Kemlers"
 msgstr "ارنيس كيميلر"
 
 #: data/com.github.AppManager.metainfo.xml:9
-#, fuzzy
 msgid "Drag-and-drop AppImage installer and management application"
 msgstr "أداة تثبيت AppImage بالسحب والإسقاط لـ GNOME"
 
 #: data/com.github.AppManager.metainfo.xml:35
-#, fuzzy
 msgid ""
 "AppManager lets you install or uninstall AppImages with a familiar drag-and-"
 "drop workflow inspired by macOS. It handles desktop integration, icon "
@@ -1283,6 +1273,5 @@ msgstr ""
 "وإفلات مألوف مستوحى من نظام التشغيل macOS. فهو يتعامل مع تكامل سطح المكتب "
 "واستخراج الأيقونات والبتات القابلة للتنفيذ وقوائم سياق Nautilus."
 
-#, fuzzy
 #~ msgid "Launch Application"
 #~ msgstr "استخراج التطبيق؟"

@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the AppManager package.
 # Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
@@ -172,7 +171,6 @@ msgstr "Елемеу"
 
 #. Offer to delete permanently as fallback
 #: src/application.vala:816
-#, fuzzy
 msgid "Cannot move to trash"
 msgstr "Қоқыс шелегіне жылжыту"
 
@@ -202,7 +200,7 @@ msgid "Deleted permanently"
 msgstr ""
 
 #: src/application.vala:843 src/application.vala:849
-#, fuzzy, c-format
+#, c-format
 msgid "%s moved to Trash"
 msgstr "Қоқыс шелегіне жылжытылды"
 
@@ -211,12 +209,10 @@ msgid "Undo"
 msgstr ""
 
 #: src/application.vala:876
-#, fuzzy
 msgid "Undo failed"
 msgstr "Өшіру сәтсіз аяқталды"
 
 #: src/application.vala:879
-#, fuzzy
 msgid "Restored"
 msgstr "Бастапқысын қалпына келтіру"
 
@@ -258,12 +254,11 @@ msgid "%d app update(s) available"
 msgstr "%d қолданба жаңартуы бар"
 
 #: src/core/background_update_service.vala:312
-#, fuzzy
 msgid "App updates failed"
 msgstr "Қолданба жаңартулары бар"
 
 #: src/core/background_update_service.vala:313
-#, fuzzy, c-format
+#, c-format
 msgid "%d app update(s) failed"
 msgstr "%d жаңарту сәтсіз аяқталды"
 
@@ -382,7 +377,6 @@ msgstr "%s нұсқасына дейін жаңартылды"
 
 #. All candidates failed identity verification
 #: src/core/updater.vala:754 src/core/updater.vala:756
-#, fuzzy
 msgid "App identity mismatch"
 msgstr "Архитектура сәйкессіздігі"
 
@@ -461,7 +455,6 @@ msgid "Extracted"
 msgstr "Тарқатылған"
 
 #: src/windows/details_window.vala:256
-#, fuzzy
 msgid "App version"
 msgstr "Нұсқасы"
 
@@ -598,7 +591,6 @@ msgid "Checking..."
 msgstr "Тексерілуде..."
 
 #: src/windows/details_window.vala:962
-#, fuzzy
 msgid "Update Failed"
 msgstr "Жаңарту бар"
 
@@ -934,7 +926,6 @@ msgid "Update cancelled"
 msgstr "Жаңартудан бас тартылды"
 
 #: src/windows/main_window.vala:1385 src/windows/main_window.vala:1405
-#, fuzzy
 msgid "Update failed"
 msgstr "Жаңарту бар"
 
@@ -1281,12 +1272,10 @@ msgid "Arnis Kemlers"
 msgstr "Arnis Kemlers"
 
 #: data/com.github.AppManager.metainfo.xml:9
-#, fuzzy
 msgid "Drag-and-drop AppImage installer and management application"
 msgstr "GNOME үшін ұстап әкеліп тастайтын AppImage орнатқышы"
 
 #: data/com.github.AppManager.metainfo.xml:35
-#, fuzzy
 msgid ""
 "AppManager lets you install or uninstall AppImages with a familiar drag-and-"
 "drop workflow inspired by macOS. It handles desktop integration, icon "
@@ -1297,6 +1286,5 @@ msgstr ""
 "Ол жұмыс үстелімен интеграцияны, таңбашаны шығарып алуды, орындалатын "
 "биттерді және Nautilus контекстік мәзірлерін басқарады."
 
-#, fuzzy
 #~ msgid "Launch Application"
 #~ msgstr "Қолданбаны тарқату керек пе?"

@@ -169,7 +169,6 @@ msgstr "Lõpeta"
 
 #. Offer to delete permanently as fallback
 #: src/application.vala:816
-#, fuzzy
 msgid "Cannot move to trash"
 msgstr "Teisalda prügikasti"
 
@@ -199,7 +198,7 @@ msgid "Deleted permanently"
 msgstr ""
 
 #: src/application.vala:843 src/application.vala:849
-#, fuzzy, c-format
+#, c-format
 msgid "%s moved to Trash"
 msgstr "Teisaldati prügikasti"
 
@@ -208,12 +207,10 @@ msgid "Undo"
 msgstr ""
 
 #: src/application.vala:876
-#, fuzzy
 msgid "Undo failed"
 msgstr "Desinstallimine ebaõnnestus"
 
 #: src/application.vala:879
-#, fuzzy
 msgid "Restored"
 msgstr "Taasta vaikeväärtus"
 
@@ -255,12 +252,11 @@ msgid "%d app update(s) available"
 msgstr "%d rakenduse uuendust saadaval"
 
 #: src/core/background_update_service.vala:312
-#, fuzzy
 msgid "App updates failed"
 msgstr "Rakenduste uuendused saadaval"
 
 #: src/core/background_update_service.vala:313
-#, fuzzy, c-format
+#, c-format
 msgid "%d app update(s) failed"
 msgstr "%d uuendust ebaõnnestus"
 
@@ -379,7 +375,6 @@ msgstr "Värskendati %s"
 
 #. All candidates failed identity verification
 #: src/core/updater.vala:754 src/core/updater.vala:756
-#, fuzzy
 msgid "App identity mismatch"
 msgstr "Arhitektuuri mittevastavus"
 
@@ -458,7 +453,6 @@ msgid "Extracted"
 msgstr "Ekstraheeritud"
 
 #: src/windows/details_window.vala:256
-#, fuzzy
 msgid "App version"
 msgstr "Versioon"
 
@@ -595,7 +589,6 @@ msgid "Checking..."
 msgstr "Kontrollimine..."
 
 #: src/windows/details_window.vala:962
-#, fuzzy
 msgid "Update Failed"
 msgstr "Uuendus saadaval"
 
@@ -928,7 +921,6 @@ msgid "Update cancelled"
 msgstr "Uuendus tühistati"
 
 #: src/windows/main_window.vala:1385 src/windows/main_window.vala:1405
-#, fuzzy
 msgid "Update failed"
 msgstr "Uuendus saadaval"
 
@@ -1270,12 +1262,10 @@ msgid "Arnis Kemlers"
 msgstr "Arnis Kemlers"
 
 #: data/com.github.AppManager.metainfo.xml:9
-#, fuzzy
 msgid "Drag-and-drop AppImage installer and management application"
 msgstr "Drag-and-drop AppImage installer GNOME jaoks"
 
 #: data/com.github.AppManager.metainfo.xml:35
-#, fuzzy
 msgid ""
 "AppManager lets you install or uninstall AppImages with a familiar drag-and-"
 "drop workflow inspired by macOS. It handles desktop integration, icon "
@@ -1286,6 +1276,5 @@ msgstr ""
 "integreerimise, ikooni ekstraheerimise, käivitatavate bittide ja Nautiluse "
 "kontekstimenüüdega."
 
-#, fuzzy
 #~ msgid "Launch Application"
 #~ msgstr "Ekstraheerida rakendus?"

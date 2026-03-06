@@ -171,7 +171,6 @@ msgstr "Odrzucać"
 
 #. Offer to delete permanently as fallback
 #: src/application.vala:816
-#, fuzzy
 msgid "Cannot move to trash"
 msgstr "Przenieś do Kosza"
 
@@ -201,7 +200,7 @@ msgid "Deleted permanently"
 msgstr ""
 
 #: src/application.vala:843 src/application.vala:849
-#, fuzzy, c-format
+#, c-format
 msgid "%s moved to Trash"
 msgstr "Przeniesiono do Kosza"
 
@@ -210,12 +209,10 @@ msgid "Undo"
 msgstr ""
 
 #: src/application.vala:876
-#, fuzzy
 msgid "Undo failed"
 msgstr "Odinstalowanie nie powiodło się"
 
 #: src/application.vala:879
-#, fuzzy
 msgid "Restored"
 msgstr "Przywróć domyślne"
 
@@ -257,12 +254,11 @@ msgid "%d app update(s) available"
 msgstr "Dostępne są aktualizacje aplikacji %d"
 
 #: src/core/background_update_service.vala:312
-#, fuzzy
 msgid "App updates failed"
 msgstr "Dostępne aktualizacje aplikacji"
 
 #: src/core/background_update_service.vala:313
-#, fuzzy, c-format
+#, c-format
 msgid "%d app update(s) failed"
 msgstr "Aktualizacje %d nie powiodły się"
 
@@ -381,7 +377,6 @@ msgstr "Zaktualizowano do %s"
 
 #. All candidates failed identity verification
 #: src/core/updater.vala:754 src/core/updater.vala:756
-#, fuzzy
 msgid "App identity mismatch"
 msgstr "Niedopasowanie architektury"
 
@@ -461,7 +456,6 @@ msgid "Extracted"
 msgstr "Wytłoczony"
 
 #: src/windows/details_window.vala:256
-#, fuzzy
 msgid "App version"
 msgstr "Wersja"
 
@@ -598,7 +592,6 @@ msgid "Checking..."
 msgstr "Kontrola..."
 
 #: src/windows/details_window.vala:962
-#, fuzzy
 msgid "Update Failed"
 msgstr "Dostępna aktualizacja"
 
@@ -935,7 +928,6 @@ msgid "Update cancelled"
 msgstr "Aktualizacja anulowana"
 
 #: src/windows/main_window.vala:1385 src/windows/main_window.vala:1405
-#, fuzzy
 msgid "Update failed"
 msgstr "Dostępna aktualizacja"
 
@@ -1281,12 +1273,10 @@ msgid "Arnis Kemlers"
 msgstr "Arnisa Kemlersa"
 
 #: data/com.github.AppManager.metainfo.xml:9
-#, fuzzy
 msgid "Drag-and-drop AppImage installer and management application"
 msgstr "Przeciągnij i upuść instalator AppImage dla GNOME"
 
 #: data/com.github.AppManager.metainfo.xml:35
-#, fuzzy
 msgid ""
 "AppManager lets you install or uninstall AppImages with a familiar drag-and-"
 "drop workflow inspired by macOS. It handles desktop integration, icon "
@@ -1297,6 +1287,5 @@ msgstr ""
 "macOS. Obsługuje integrację pulpitu, wyodrębnianie ikon, pliki wykonywalne i "
 "menu kontekstowe Nautilusa."
 
-#, fuzzy
 #~ msgid "Launch Application"
 #~ msgstr "Wyodrębnić aplikację?"
