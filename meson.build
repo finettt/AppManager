@@ -28,7 +28,7 @@ add_project_arguments(['-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name())], 
 add_project_arguments(['-w'], language: 'c')
 
 # DwarFS tools bundling
-dwarfs_version = '0.15.0'
+dwarfs_version = '0.15.3'
 dwarfs_tools_dir = get_option('prefix') / get_option('bindir')
 
 host_cpu = host_machine.cpu_family()
