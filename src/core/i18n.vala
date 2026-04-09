@@ -36,6 +36,26 @@ namespace AppManager.Core {
     }
 
     /**
+     * Get the current locale's language code (e.g. "lv", "de", "pt_BR").
+     * Returns null if locale is "C", "POSIX", or could not be determined.
+     */
+    public string? get_locale_code() {
+        // get_language_names() returns e.g. ["lv_LV", "lv", "C"] — pick the shortest non-C code
+        var langs = Intl.get_language_names();
+        string? best = null;
+        foreach (var lang in langs) {
+            if (lang == "C" || lang == "POSIX" || lang == "") continue;
+            // Skip variants with encoding (e.g. "lv_LV.UTF-8")
+            if (lang.contains(".")) continue;
+            // Prefer shorter codes (e.g. "lv" over "lv_LV"), but keep regional like "pt_BR"
+            if (best == null || lang.length < best.length) {
+                best = lang;
+            }
+        }
+        return best;
+    }
+
+    /**
      * Determine the locale directory with AppImage and development support.
      */
     private string get_locale_dir() {

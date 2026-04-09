@@ -99,11 +99,15 @@ namespace AppManager.Core {
             return key_file.to_data(null, null);
         }
 
-        public void set_action_group(string action_name, string name, string exec, string icon) {
+        public void set_action_group(string action_name, string name, string exec, string icon, string? locale_code = null, string? localized_name = null) {
             var group = "Desktop Action %s".printf(action_name);
             key_file.set_string(group, "Name", name);
             key_file.set_string(group, "Exec", exec);
             key_file.set_string(group, "Icon", icon);
+
+            if (locale_code != null && localized_name != null && localized_name != name) {
+                key_file.set_locale_string(group, "Name", locale_code, localized_name);
+            }
         }
 
         public void remove_key(string key, string group = "Desktop Entry") {

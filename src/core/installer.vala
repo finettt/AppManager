@@ -669,9 +669,11 @@ namespace AppManager.Core {
             var uninstall_exec = build_uninstall_exec(record.installed_path, is_self_install);
             var home = Environment.get_home_dir();
             var is_trashable = record.installed_path.has_prefix(home + "/");
-            var uninstall_label = is_trashable ? _("Move to Trash") : _("Delete Permanently");
+            var uninstall_label = is_trashable ? "Move to Trash" : "Delete Permanently";
             var uninstall_icon = is_trashable ? "user-trash" : "edit-delete";
-            entry.set_action_group("Uninstall", uninstall_label, uninstall_exec, uninstall_icon);
+            var locale_code = Core.get_locale_code();
+            var localized_label = is_trashable ? _("Move to Trash") : _("Delete Permanently");
+            entry.set_action_group("Uninstall", uninstall_label, uninstall_exec, uninstall_icon, locale_code, localized_label);
             
             return entry.to_data();
         }

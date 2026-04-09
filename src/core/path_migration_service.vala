@@ -335,12 +335,34 @@ namespace AppManager.Core {
                         updated = updated.replace("\nIcon=user-trash\n", "\nIcon=edit-delete\n");
                     }
                 }
-                
+
+                // Write updated content first (path replacements + label/icon swap)
                 if (updated != content) {
                     GLib.FileUtils.set_contents(desktop_path, updated);
                     debug("Updated desktop file: %s (replaced %s with %s)", desktop_path, old_base, new_base);
                 } else {
                     debug("No changes needed in desktop file: %s (base path %s not found)", desktop_path, old_base);
+                }
+
+                // Update the localized uninstall label using KeyFile for safety
+                // (avoids clobbering Name[xx]= in other groups via raw string replace)
+                var new_label = new_is_trashable ? "Move to Trash" : "Delete Permanently";
+                var localized_label = new_is_trashable ? _("Move to Trash") : _("Delete Permanently");
+                var locale_code = get_locale_code();
+                var action_group = "Desktop Action Uninstall";
+                try {
+                    var keyfile = new KeyFile();
+                    keyfile.load_from_file(desktop_path, KeyFileFlags.KEEP_TRANSLATIONS);
+                    if (keyfile.has_group(action_group)) {
+                        // Rewrite the Name and localized Name for the Uninstall action
+                        keyfile.set_string(action_group, "Name", new_label);
+                        if (locale_code != null && localized_label != new_label) {
+                            keyfile.set_locale_string(action_group, "Name", locale_code, localized_label);
+                        }
+                        GLib.FileUtils.set_contents(desktop_path, keyfile.to_data());
+                    }
+                } catch (Error e) {
+                    debug("Failed to update localized uninstall label: %s", e.message);
                 }
             } catch (Error e) {
                 warning("Failed to update desktop file %s: %s", desktop_path, e.message);
