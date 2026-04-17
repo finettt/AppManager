@@ -63,7 +63,6 @@ namespace AppManager.Core {
         private Installer installer;
         private Soup.Session session;
         private string user_agent;
-        private string update_log_path;
         private const int MAX_PARALLEL_JOBS = 5;
         private const int MAX_ASSET_VERIFY_DEPTH = 3;
         private static string? _system_arch = null;
@@ -76,7 +75,6 @@ namespace AppManager.Core {
             user_agent = "AppManager/%s".printf(Core.APPLICATION_VERSION);
             session.user_agent = user_agent;
             session.timeout = 60;
-            update_log_path = Path.build_filename(AppPaths.data_dir, "updates.log");
             app_settings = new GLib.Settings(Core.APPLICATION_ID);
         }
 
@@ -1329,16 +1327,7 @@ namespace AppManager.Core {
         }
 
         private void log_update_event(InstallationRecord record, string status, string detail) {
-            try {
-                var file = File.new_for_path(update_log_path);
-                var stream = file.append_to(FileCreateFlags.NONE);
-                var timestamp = new GLib.DateTime.now_local();
-                var line = "%s [%s] %s: %s\n".printf(timestamp.format("%Y-%m-%dT%H:%M:%S%z"), status, record.name, detail);
-                stream.write(line.data);
-                stream.close(null);
-            } catch (Error e) {
-                warning("Failed to write update log: %s", e.message);
-            }
+            UpdateLog.append("[%s] %s: %s".printf(status, record.name, detail));
         }
 
         // ─────────────────────────────────────────────────────────────────────

@@ -75,6 +75,7 @@ core_sources = files(
   'src/core/installer.vala',
   'src/core/update_sources.vala',
   'src/core/updater.vala',
+  'src/core/update_log.vala',
   'src/core/background_update_service.vala',
   'src/core/staged_updates.vala',
   'src/core/i18n.vala',

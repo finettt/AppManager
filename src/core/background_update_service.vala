@@ -7,7 +7,6 @@ namespace AppManager.Core {
         private InstallationRegistry registry;
         private Updater updater;
         private StagedUpdatesManager staged_updates;
-        private string update_log_path;
         private uint32 notification_id = 0;
         private DBusConnection? dbus_connection = null;
         private uint action_signal_id = 0;
@@ -17,7 +16,6 @@ namespace AppManager.Core {
             this.registry = registry;
             this.updater = new Updater(registry, installer);
             this.staged_updates = new StagedUpdatesManager();
-            this.update_log_path = Path.build_filename(AppPaths.data_dir, "updates.log");
         }
 
         /**
@@ -524,14 +522,7 @@ X-XDP-Autostart=com.github.AppManager
         }
 
         private void append_update_log(string message) {
-            DirUtils.create_with_parents(AppPaths.data_dir, 0755);
-            var ts = new GLib.DateTime.now_local().format("%FT%T%z");
-            var line = "%s %s\n".printf(ts, message);
-            var file = FileStream.open(update_log_path, "a");
-            if (file != null) {
-                file.puts(line);
-                file.flush();
-            }
+            UpdateLog.append(message);
         }
     }
 }
