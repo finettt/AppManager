@@ -1342,7 +1342,8 @@ namespace AppManager.Core {
             public string? url { get; set; }
             public string? version { get; set; }
             public string? sha1 { get; set; }
-            
+            public string? resolved_url { get; set; }
+
             public ZsyncFileInfo() {
                 Object();
             }
@@ -1369,18 +1370,23 @@ namespace AppManager.Core {
                 
                 var bytes = session.send_and_read(message, cancellable);
                 var status = message.get_status();
-                
+
                 // Accept both 200 (full content) and 206 (partial content)
                 if (status != 200 && status != 206) {
                     return null;
                 }
-                
+
                 var content = (string) bytes.get_data();
                 if (content == null || content.length == 0) {
                     return null;
                 }
-                
+
                 var info = new ZsyncFileInfo();
+
+                var final_uri = message.get_uri();
+                if (final_uri != null) {
+                    info.resolved_url = final_uri.to_string();
+                }
                 
                 // Parse line by line until we hit a blank line or binary data
                 var lines = content.split("\n");
@@ -1614,8 +1620,20 @@ namespace AppManager.Core {
                 var temp_dir = AppManager.Utils.FileUtils.create_temp_dir("appmgr-zsync-");
                 
                 try {
+                    // zsync2 does not follow HTTP redirects; if the .zsync URL
+                    // redirects (e.g. Inkscape's GitLab CI artifact link),
+                    // pass the resolved URL captured by libsoup during
+                    // fetch_zsync_file_info().
+                    string zsync_url_for_zsync = zsync_url;
+                    if (zsync_info != null && zsync_info.resolved_url != null &&
+                        zsync_info.resolved_url != zsync_url) {
+                        debug("update_zsync[%s]: following .zsync redirect %s -> %s",
+                              record.name ?? record.id, zsync_url, zsync_info.resolved_url);
+                        zsync_url_for_zsync = zsync_info.resolved_url;
+                    }
+
                     // Run zsync2 with the existing AppImage as seed
-                    var output_path = run_zsync(zsync_bin, zsync_url, record.installed_path, temp_dir, cancellable);
+                    var output_path = run_zsync(zsync_bin, zsync_url_for_zsync, record.installed_path, temp_dir, cancellable);
                     
                     // Upgrade using the downloaded file
                     var new_record = installer.upgrade(output_path, record);
