@@ -53,6 +53,9 @@ namespace AppManager {
         private string view_mode = "list";
         private bool _fullscreen_active = false;
         private string pre_fullscreen_view_mode = "list";
+        private Gtk.Widget? import_hint_widget;
+        private bool import_in_progress = false;
+        private bool import_cancel_requested = false;
 
         public MainWindow(Application app, InstallationRegistry registry, Installer installer, Settings settings) {
             Object(application: app);
@@ -171,7 +174,45 @@ namespace AppManager {
             content_stack.add_named(empty_state_box, "empty");
             content_stack.set_visible_child_name("list");
 
-            var root_toolbar = create_toolbar_with_header(content_stack, true);
+            // GNOME-style hint overlay: title + subtitle + pill button, centered in
+            // the content area when only AppManager itself is installed.
+            var hint_title = new Gtk.Label(_("No Apps Yet"));
+            hint_title.add_css_class("title-2");
+            hint_title.set_halign(Gtk.Align.CENTER);
+
+            var hint_subtitle = new Gtk.Label(_("Import your AppImages to manage and update them here"));
+            hint_subtitle.add_css_class("dim-label");
+            hint_subtitle.set_halign(Gtk.Align.CENTER);
+            hint_subtitle.set_wrap(true);
+            hint_subtitle.set_max_width_chars(42);
+            hint_subtitle.set_justify(Gtk.Justification.CENTER);
+
+            var hint_btn = new Gtk.Button();
+            hint_btn.add_css_class("pill");
+            hint_btn.add_css_class("suggested-action");
+            hint_btn.set_halign(Gtk.Align.CENTER);
+            hint_btn.set_margin_top(6);
+            var hint_btn_content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            hint_btn_content.set_halign(Gtk.Align.CENTER);
+            hint_btn_content.append(new Gtk.Image.from_icon_name("folder-open-symbolic"));
+            hint_btn_content.append(new Gtk.Label(_("Import AppImages ...")));
+            hint_btn.set_child(hint_btn_content);
+            hint_btn.clicked.connect(() => present_import_folder_dialog());
+
+            var hint_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
+            hint_box.set_halign(Gtk.Align.CENTER);
+            hint_box.set_valign(Gtk.Align.CENTER);
+            hint_box.set_visible(false);
+            hint_box.append(hint_title);
+            hint_box.append(hint_subtitle);
+            hint_box.append(hint_btn);
+            import_hint_widget = hint_box;
+
+            var content_overlay = new Gtk.Overlay();
+            content_overlay.set_child(content_stack);
+            content_overlay.add_overlay(hint_box);
+
+            var root_toolbar = create_toolbar_with_header(content_overlay, true);
             var root_page = new Adw.NavigationPage(root_toolbar, "main");
             root_page.title = _("AppManager");
             navigation_view.add(root_page);
@@ -184,6 +225,9 @@ namespace AppManager {
             });
 
             this.close_request.connect(() => {
+                if (import_in_progress) {
+                    return true;
+                }
                 settings.set_int("window-width", this.get_width());
                 settings.set_int("window-height", this.get_height());
                 return false;
@@ -265,6 +309,20 @@ namespace AppManager {
             links_group.add(appimage_catalog_row);
 
             page.add(links_group);
+
+            var import_group = new Adw.PreferencesGroup();
+            var import_row = new Adw.ActionRow();
+            import_row.title = _("Import AppImages from folder ...");
+            import_row.activatable = true;
+            import_row.add_prefix(new Gtk.Image.from_icon_name("folder-open-symbolic"));
+            import_row.add_suffix(new Gtk.Image.from_icon_name("go-next-symbolic"));
+            import_row.activated.connect(() => {
+                bottom_sheet.open = false;
+                present_import_folder_dialog();
+            });
+            import_group.add(import_row);
+            page.add(import_group);
+
             sheet_toolbar.set_content(page);
             return sheet_toolbar;
         }
@@ -303,6 +361,19 @@ namespace AppManager {
             subtitle.set_justify(Gtk.Justification.CENTER);
             subtitle.set_margin_top(12);
 
+            var import_button = new Gtk.Button();
+            import_button.add_css_class("pill");
+            import_button.add_css_class("suggested-action");
+            import_button.set_margin_top(18);
+            var import_btn_content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            import_btn_content.set_halign(Gtk.Align.CENTER);
+            import_btn_content.append(new Gtk.Image.from_icon_name("folder-open-symbolic"));
+            import_btn_content.append(new Gtk.Label(_("Import AppImages ...")));
+            import_button.set_child(import_btn_content);
+            import_button.clicked.connect(() => {
+                present_import_folder_dialog();
+            });
+
             var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             box.set_hexpand(true);
             box.set_vexpand(true);
@@ -310,6 +381,7 @@ namespace AppManager {
             box.set_valign(Gtk.Align.CENTER);
             box.append(empty_state_label);
             box.append(subtitle);
+            box.append(import_button);
 
             return box;
         }
@@ -342,11 +414,11 @@ namespace AppManager {
             debug("MainWindow: refresh_installations called");
             ensure_apps_group_present();
             clear_apps_group_rows();
-            
+
             var all_records = registry.list();
             has_installations = all_records.length > 0;
             var filtered_list = new Gee.ArrayList<InstallationRecord>();
-            
+
             foreach (var record in all_records) {
                 if (current_search_query != "") {
                     var name = record.name ?? "";
@@ -356,7 +428,14 @@ namespace AppManager {
                 }
                 filtered_list.add(record);
             }
-            
+
+            // Show the import hint (overlay) when only AppManager itself is installed.
+            // Hide it when filtered_list is empty — the empty-state page has its own button.
+            bool only_self = has_only_self_records(all_records);
+            if (import_hint_widget != null) {
+                import_hint_widget.set_visible(only_self && filtered_list.size > 0);
+            }
+
             // Prune based on all records (not filtered) to avoid removing staged updates during search
             prune_pending_keys_and_staged_updates(all_records);
             prune_size_cache(filtered_list);
@@ -1549,6 +1628,34 @@ namespace AppManager {
             }
         }
 
+        /**
+         * Returns true when every record in the registry is AppManager managing itself.
+         * In that case the list is treated as effectively empty so the import prompt shows.
+         */
+        private bool has_only_self_records(InstallationRecord[] records) {
+            if (records.length == 0) return false;
+            foreach (var rec in records) {
+                if (!is_self_app_record(rec)) return false;
+            }
+            return true;
+        }
+
+        /**
+         * Heuristic: does this record look like AppManager itself?
+         * Checks the app name and desktop file path for "appmanager".
+         */
+        private bool is_self_app_record(InstallationRecord record) {
+            if (record.name != null) {
+                var name = record.name.strip().down().replace(" ", "").replace("-", "");
+                if (name.has_prefix("appmanager")) return true;
+            }
+            if (record.desktop_file != null &&
+                    record.desktop_file.down().contains("appmanager")) {
+                return true;
+            }
+            return false;
+        }
+
         private string record_state_key(InstallationRecord record) {
             if (record.desktop_file != null && record.desktop_file.strip() != "") {
                 return record.desktop_file;
@@ -1772,6 +1879,195 @@ namespace AppManager {
                 default:
                     return Gtk.License.CUSTOM;
             }
+        }
+
+        private void present_import_folder_dialog() {
+            var file_dialog = new Gtk.FileDialog();
+            file_dialog.set_title(_("Select folder with AppImages"));
+            file_dialog.select_folder.begin(this, null, (obj, res) => {
+                GLib.File folder;
+                try {
+                    folder = file_dialog.select_folder.end(res);
+                } catch (Error e) {
+                    // User cancelled or error
+                    return;
+                }
+                if (folder == null) {
+                    return;
+                }
+                present_import_options_dialog(folder);
+            });
+        }
+
+        private void present_import_options_dialog(GLib.File folder) {
+            var dialog = new Adw.AlertDialog(
+                _("Import AppImages"),
+                _("Install AppImages found in %s").printf(folder.get_basename()));
+
+            var move_check = new Gtk.CheckButton.with_label(_("Move AppImages"));
+            move_check.set_active(true);
+            move_check.set_margin_start(12);
+            move_check.set_margin_end(12);
+            dialog.set_extra_child(move_check);
+
+            dialog.add_response("cancel", _("Cancel"));
+            dialog.add_response("import", _("Import"));
+            dialog.set_response_appearance("import", Adw.ResponseAppearance.SUGGESTED);
+            dialog.set_default_response("import");
+
+            dialog.response.connect((response_id) => {
+                if (response_id == "import") {
+                    var move = move_check.get_active();
+                    run_folder_import.begin(folder, move);
+                }
+            });
+
+            dialog.present(this);
+        }
+
+        private async void run_folder_import(GLib.File folder, bool move) {
+            var appimages = new Gee.ArrayList<string>();
+            try {
+                var enumerator = folder.enumerate_children("standard::name,standard::type", FileQueryInfoFlags.NONE);
+                FileInfo info;
+                while ((info = enumerator.next_file()) != null) {
+                    if (info.get_file_type() != FileType.REGULAR) {
+                        continue;
+                    }
+                    var name = info.get_name();
+                    var full_path = Path.build_filename(folder.get_path(), name);
+                    if (AppImageAssets.detect_format(full_path) != AppImageFormat.UNKNOWN) {
+                        appimages.add(full_path);
+                    }
+                }
+            } catch (Error e) {
+                add_toast(_("Failed to read folder: %s").printf(e.message));
+                return;
+            }
+
+            if (appimages.size == 0) {
+                add_toast(_("No AppImage files found in folder"));
+                return;
+            }
+
+            int total = appimages.size;
+            int installed = 0;
+            int skipped = 0;
+            int failed = 0;
+            int cancelled = 0;
+
+            var progress_dialog = new Adw.AlertDialog(
+                _("Importing AppImages…"),
+                _("Installing %d AppImage(s)…").printf(total));
+            progress_dialog.add_response("cancel", _("Cancel"));
+            progress_dialog.set_response_appearance("cancel", Adw.ResponseAppearance.DESTRUCTIVE);
+            progress_dialog.close_response = "cancel";
+            progress_dialog.can_close = false;
+
+            var progress_bar = new Gtk.ProgressBar();
+            progress_bar.show_text = true;
+            progress_bar.margin_start = 12;
+            progress_bar.margin_end = 12;
+            progress_bar.margin_top = 12;
+            progress_bar.margin_bottom = 4;
+            progress_bar.fraction = 0.0;
+            progress_bar.text = _("Starting…");
+            progress_dialog.extra_child = progress_bar;
+
+            import_in_progress = true;
+            import_cancel_requested = false;
+
+            progress_dialog.response.connect((response_id) => {
+                if (response_id == "cancel") {
+                    import_cancel_requested = true;
+                    progress_bar.text = _("Cancelling…");
+                }
+            });
+
+            progress_dialog.present(this);
+
+            int index = 0;
+            foreach (var path in appimages) {
+                index++;
+
+                if (import_cancel_requested) {
+                    cancelled = total - (installed + skipped + failed);
+                    break;
+                }
+
+                var basename = Path.get_basename(path);
+                progress_bar.fraction = (double)(index - 1) / (double)total;
+                progress_bar.text = _("%d of %d: %s").printf(index, total, basename);
+
+                SourceFunc callback = run_folder_import.callback;
+                InstallationRecord? record = null;
+                Error? install_error = null;
+
+                string staged_path;
+                string staged_dir;
+                try {
+                    staged_dir = Utils.FileUtils.create_temp_dir("appmgr-import-");
+                    if (move) {
+                        staged_path = Path.build_filename(staged_dir, Path.get_basename(path));
+                        var src = GLib.File.new_for_path(path);
+                        var dest = GLib.File.new_for_path(staged_path);
+                        src.move(dest, FileCopyFlags.OVERWRITE, null, null);
+                    } else {
+                        staged_path = Path.build_filename(staged_dir, Path.get_basename(path));
+                        Utils.FileUtils.file_copy(path, staged_path);
+                    }
+                } catch (Error e) {
+                    warning("Failed to stage %s: %s", path, e.message);
+                    failed++;
+                    continue;
+                }
+
+                var final_staged_dir = staged_dir;
+                new Thread<void>("appmgr-import", () => {
+                    try {
+                        record = installer.install(staged_path, InstallMode.PORTABLE);
+                    } catch (Error e) {
+                        install_error = e;
+                    }
+                    Idle.add((owned) callback);
+                });
+
+                yield;
+
+                Utils.FileUtils.remove_dir_recursive(final_staged_dir);
+
+                if (install_error != null) {
+                    if (install_error is InstallerError.ALREADY_INSTALLED) {
+                        skipped++;
+                    } else {
+                        warning("Failed to install %s: %s", path, install_error.message);
+                        failed++;
+                    }
+                } else {
+                    installed++;
+                }
+
+                progress_bar.fraction = (double)index / (double)total;
+            }
+
+            import_in_progress = false;
+            progress_dialog.can_close = true;
+            progress_dialog.force_close();
+
+            if (installed > 0) {
+                add_toast(_("Imported %d app(s)").printf(installed));
+            }
+            if (skipped > 0) {
+                add_toast(_("Skipped %d already installed app(s)").printf(skipped));
+            }
+            if (failed > 0) {
+                add_toast(_("%d app(s) failed to import").printf(failed));
+            }
+            if (cancelled > 0) {
+                add_toast(_("Cancelled — %d app(s) not imported").printf(cancelled));
+            }
+
+            refresh_installations();
         }
 
         private void show_detail_page(InstallationRecord record) {
