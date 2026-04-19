@@ -6,6 +6,7 @@ namespace AppManager.Core {
         ALREADY_INSTALLED,
         DESKTOP_MISSING,
         EXTRACTION_FAILED,
+        INCOMPATIBLE_ARCHITECTURE,
         SEVEN_ZIP_MISSING,
         UNINSTALL_FAILED,
         UNKNOWN
@@ -30,6 +31,57 @@ namespace AppManager.Core {
 
         public InstallationRecord upgrade(string file_path, InstallationRecord old_record) throws Error {
             return reinstall(file_path, old_record, old_record.mode);
+        }
+
+        /**
+         * Full install flow: checks architecture, detects existing installation,
+         * and either upgrades or installs. Sets is_upgrade to true if an existing
+         * installation was replaced.
+         */
+        public InstallationRecord install_or_upgrade(string file_path, out bool is_upgrade) throws Error {
+            is_upgrade = false;
+
+            var metadata = new AppImageMetadata(File.new_for_path(file_path));
+            if (!metadata.is_architecture_compatible()) {
+                throw new InstallerError.INCOMPATIBLE_ARCHITECTURE(
+                    metadata.architecture ?? "unknown");
+            }
+
+            var existing = detect_existing(file_path);
+            if (existing != null) {
+                is_upgrade = true;
+                return upgrade(file_path, existing);
+            } else {
+                return install(file_path);
+            }
+        }
+
+        private InstallationRecord? detect_existing(string appimage_path) {
+            try {
+                var checksum = Utils.FileUtils.compute_checksum(appimage_path);
+
+                string? app_name = null;
+                string? temp_dir = null;
+                try {
+                    temp_dir = Utils.FileUtils.create_temp_dir("appmgr-detect-");
+                    var desktop_file = AppImageAssets.extract_desktop_entry(appimage_path, temp_dir);
+                    if (desktop_file != null) {
+                        var desktop_info = AppImageAssets.parse_desktop_file(desktop_file);
+                        if (desktop_info.name != null && desktop_info.name.strip() != "") {
+                            app_name = desktop_info.name.strip();
+                        }
+                    }
+                } finally {
+                    if (temp_dir != null) {
+                        Utils.FileUtils.remove_dir_recursive(temp_dir);
+                    }
+                }
+
+                return registry.detect_existing(appimage_path, checksum, app_name);
+            } catch (Error e) {
+                warning("Failed to detect existing installation: %s", e.message);
+            }
+            return null;
         }
 
         public InstallationRecord reinstall(string file_path, InstallationRecord old_record, InstallMode mode) throws Error {

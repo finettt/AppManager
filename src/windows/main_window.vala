@@ -121,6 +121,9 @@ namespace AppManager {
 
         private void on_registry_changed() {
             debug("MainWindow: received registry changed signal");
+            if (import_in_progress) {
+                return;
+            }
             refresh_installations();
         }
 
@@ -815,11 +818,12 @@ namespace AppManager {
         }
 
         private string? format_time_label(InstallationRecord record) {
-            // Determine label type: if app has been updated, always show "Updated", otherwise "Installed"
-            bool is_updated = record.updated_at > 0;
+            // Determine label type: imported, updated, or installed
+            bool is_imported = import_in_progress;
+            bool is_updated = !is_imported && record.updated_at > 0;
             
             // Use updated_at if available, otherwise use installed_at for the timestamp
-            int64 timestamp = is_updated ? record.updated_at : record.installed_at;
+            int64 timestamp = record.updated_at > 0 ? record.updated_at : record.installed_at;
             
             if (timestamp <= 0) {
                 return null;
@@ -833,7 +837,7 @@ namespace AppManager {
 
             var seconds = delta / 1000000;
             if (seconds < 60) {
-                return is_updated ? _("Updated just now") : _("Installed just now");
+                return is_imported ? _("Imported just now") : is_updated ? _("Updated just now") : _("Installed just now");
             }
 
             if (seconds < 3600) {
@@ -841,7 +845,7 @@ namespace AppManager {
                 if (minutes == 0) {
                     minutes = 1;
                 }
-                return is_updated ? _("Updated %d min ago").printf(minutes) : _("Installed %d min ago").printf(minutes);
+                return is_imported ? _("Imported %d min ago").printf(minutes) : is_updated ? _("Updated %d min ago").printf(minutes) : _("Installed %d min ago").printf(minutes);
             }
 
             if (seconds < 86400) {
@@ -849,14 +853,14 @@ namespace AppManager {
                 if (hours == 0) {
                     hours = 1;
                 }
-                return is_updated ? _("Updated %d hours ago").printf(hours) : _("Installed %d hours ago").printf(hours);
+                return is_imported ? _("Imported %d hours ago").printf(hours) : is_updated ? _("Updated %d hours ago").printf(hours) : _("Installed %d hours ago").printf(hours);
             }
 
             var days = (int)(seconds / 86400);
             if (days == 0) {
                 days = 1;
             }
-            return is_updated ? _("Updated %d days ago").printf(days) : _("Installed %d days ago").printf(days);
+            return is_imported ? _("Imported %d days ago").printf(days) : is_updated ? _("Updated %d days ago").printf(days) : _("Installed %d days ago").printf(days);
         }
 
 
@@ -1965,8 +1969,8 @@ namespace AppManager {
             }
 
             int total = appimages.size;
-            int installed = 0;
-            int skipped = 0;
+            int imported = 0;
+            int skipped_arch = 0;
             int failed = 0;
             int cancelled = 0;
 
@@ -2005,7 +2009,7 @@ namespace AppManager {
                 index++;
 
                 if (import_cancel_requested) {
-                    cancelled = total - (installed + skipped + failed);
+                    cancelled = total - (imported + skipped_arch + failed);
                     break;
                 }
 
@@ -2039,7 +2043,8 @@ namespace AppManager {
                 var final_staged_dir = staged_dir;
                 new Thread<void>("appmgr-import", () => {
                     try {
-                        record = installer.install(staged_path, InstallMode.PORTABLE);
+                        bool unused;
+                        record = installer.install_or_upgrade(staged_path, out unused);
                     } catch (Error e) {
                         install_error = e;
                     }
@@ -2051,28 +2056,28 @@ namespace AppManager {
                 Utils.FileUtils.remove_dir_recursive(final_staged_dir);
 
                 if (install_error != null) {
-                    if (install_error is InstallerError.ALREADY_INSTALLED) {
-                        skipped++;
+                    if (install_error is InstallerError.INCOMPATIBLE_ARCHITECTURE) {
+                        warning("Skipping %s: incompatible architecture %s", path, install_error.message);
+                        skipped_arch++;
                     } else {
                         warning("Failed to install %s: %s", path, install_error.message);
                         failed++;
                     }
                 } else {
-                    installed++;
+                    imported++;
                 }
 
                 progress_bar.fraction = (double)index / (double)total;
             }
 
-            import_in_progress = false;
             progress_dialog.can_close = true;
             progress_dialog.force_close();
 
-            if (installed > 0) {
-                add_toast(_("Imported %d app(s)").printf(installed));
+            if (imported > 0) {
+                add_toast(_("Imported %d app(s)").printf(imported));
             }
-            if (skipped > 0) {
-                add_toast(_("Skipped %d already installed app(s)").printf(skipped));
+            if (skipped_arch > 0) {
+                add_toast(_("Skipped %d incompatible architecture app(s)").printf(skipped_arch));
             }
             if (failed > 0) {
                 add_toast(_("%d app(s) failed to import").printf(failed));
@@ -2082,6 +2087,13 @@ namespace AppManager {
             }
 
             refresh_installations();
+            // Defer clearing import_in_progress so that any registry.changed
+            // idle callbacks queued during the import loop still see the flag
+            // as true and get suppressed by on_registry_changed().
+            Idle.add(() => {
+                import_in_progress = false;
+                return Source.REMOVE;
+            });
         }
 
         private void show_detail_page(InstallationRecord record) {
