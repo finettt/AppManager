@@ -38,6 +38,25 @@ It also doesn't require FUSE to run, thanks to the [uruntime](https://github.com
 
 Simply [download](https://github.com/kem-a/AppManager/releases) latest app version, enable execute and double click to install it.
 
+## Nix / NixOS
+
+### Run without installation
+```bash
+nix run "github:kem-a/AppManager"
+```
+
+### Install permanently
+```bash
+nix profile install "github:kem-a/AppManager"
+```
+
+### NixOS / Home Manager
+```nix
+inputs.app-manager.url = "github:kem-a/AppManager";
+# then add to packages:
+inputs.app-manager.packages.x86_64-linux.default
+```
+
 ## Build
 
 <details> <summary> <H4>Install development dependencies</H4> <b>(click to open)</b> </summary>
