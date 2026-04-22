@@ -23,7 +23,9 @@
 
 stdenv.mkDerivation(finalAttrs: {
   pname = "app-manager";
-  version = "3.5.3";
+  version = let
+  	match = builtins.match ".*version: '([0-9.]+)'.*" (builtins.readFile ./meson.build);
+  in lib.head match;
 
   src = ./.;
 
